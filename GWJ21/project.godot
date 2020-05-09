@@ -8,9 +8,14 @@
 
 config_version=4
 
-_global_script_classes=[  ]
+_global_script_classes=[ {
+"base": "Line2D",
+"class": "Connection",
+"language": "GDScript",
+"path": "res://Scripts/Connection.gd"
+} ]
 _global_script_class_icons={
-
+"Connection": ""
 }
 
 [application]
@@ -20,6 +25,53 @@ boot_splash/image="res://splash_screen.png"
 boot_splash/fullsize=false
 boot_splash/bg_color=Color( 0.0784314, 0.133333, 0.25098, 1 )
 config/icon="res://icon.png"
+
+[autoload]
+
+LayerManager="*res://Scripts/AutoLoads/LayerManager.gd"
+
+[input]
+
+move_up={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":87,"unicode":0,"echo":false,"script":null)
+ ]
+}
+move_down={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":83,"unicode":0,"echo":false,"script":null)
+ ]
+}
+move_left={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":65,"unicode":0,"echo":false,"script":null)
+ ]
+}
+move_right={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":68,"unicode":0,"echo":false,"script":null)
+ ]
+}
+shoot={
+"deadzone": 0.5,
+"events": [ Object(InputEventMouseButton,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"button_mask":0,"position":Vector2( 0, 0 ),"global_position":Vector2( 0, 0 ),"factor":1.0,"button_index":1,"pressed":false,"doubleclick":false,"script":null)
+ ]
+}
+
+[layer_names]
+
+2d_physics/layer_1="PLAYER"
+2d_physics/layer_2="PLAYER_PROJECTILE"
+2d_physics/layer_3="ENEMIES"
+2d_physics/layer_4="ENEMY_PROJECTILES"
+2d_physics/layer_5="SELECTABLE_OBJECTS"
+2d_physics/layer_6="OBJECTS"
+2d_physics/layer_7="WALLS"
+2d_physics/layer_8="MISC"
+
+[physics]
+
+2d/default_gravity=0
 
 [rendering]
 
