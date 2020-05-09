@@ -14,11 +14,11 @@ enum LAYERS {
 func _ready():
 	var i : int = 0
 	for layer in LAYERS.keys():
-		LAYERS[layer] = int(pow(2, i)) # Sets each layer to a bit
+		LAYERS[layer] = 1 << i # Sets each layer to a bit
 		ProjectSettings.set_setting(str("layer_names/2d_physics/layer_", i+1), layer)
 		i += 1
 
-func get_all_layers(ignore_layers = [], include_misc = false):
+func get_all_layers(ignore_layers = []):
 	
 	var bits : int = 0
 	for layer in LAYERS.values():

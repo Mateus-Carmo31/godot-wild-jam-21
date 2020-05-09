@@ -1,14 +1,17 @@
-extends RigidBody2D
+extends KinematicBody2D
 
 const SELECTOR : PackedScene = preload("res://Scenes/Projectile.tscn")
 
 const ACCEL = 10
-const MAX_SPEED = 200
+const MAX_SPEED = 150
 const TURN_DAMP = 0.65
 const STOP_DAMP = 0.8
 const DAZED_DAMP = 0.2
 
 var dazed : bool = false # WIP
+
+var selected_obj : SelectableBody = null
+var current_connection : Connection = null
 
 func _ready():
 	collision_layer = LayerManager.LAYERS.PLAYER
@@ -19,42 +22,44 @@ func _ready():
 		LayerManager.LAYERS.WALLS
 	)
 
+var velocity : Vector2
 func _physics_process(delta):
 	
 	var input = get_player_input()
 	
 	if input != Vector2.ZERO and not dazed:
-		linear_velocity += input * ACCEL
-		linear_velocity = linear_velocity.clamped(MAX_SPEED)
+		velocity += input * ACCEL
+		velocity = velocity.clamped(MAX_SPEED)
 		
-		if input.dot(linear_velocity.normalized()) < -0.5:
-			linear_velocity *= pow(1.0-TURN_DAMP, delta * 10)
+		# Applies damping if the player turns too suddenly
+		if input.dot(velocity.normalized()) < -0.5:
+			velocity *= pow(1.0-TURN_DAMP, delta * 10)
 	else:
 		if not dazed:
-			linear_velocity *= pow(1.0-STOP_DAMP, delta * 10)
+			velocity *= pow(1.0-STOP_DAMP, delta * 10)
 		else:
-			linear_velocity *= pow(1.0-DAZED_DAMP, delta * 5)
+			velocity *= pow(1.0-DAZED_DAMP, delta * 5)
 	
 	if dazed:
-		var cur_mag = linear_velocity.length()
+		var cur_mag = velocity.length()
 		if cur_mag <= 40 and cur_mag > 20:
 			print("Skip available!")
 			if input != Vector2.ZERO:
 				print("Skipped!")
 				dazed = false
-				linear_velocity = Vector2()
+				velocity = Vector2()
 		elif cur_mag <= 20:
 			print("Reset to not dazed!")
 			dazed = false
-			linear_velocity = Vector2()
+			velocity = Vector2()
+	
+	velocity = move_and_slide(velocity)
 	
 	if Input.is_action_just_pressed("shoot"):
 		var shoot_dir = (get_global_mouse_position() - position).normalized()
-		launch_projectile(shoot_dir)
-		pass
+		call_deferred("launch_projectile", shoot_dir)
 	
 	modulate = Color.red if dazed else Color.white
-	self.physics_material_override.bounce = 1 if dazed else 0
 
 func get_player_input() -> Vector2:
 	
@@ -81,3 +86,18 @@ func on_projectile_miss():
 
 func on_projectile_hit(hit_obj):
 	print("Hit ", hit_obj.name)
+	
+	if selected_obj == null:
+		if current_connection != null:
+			current_connection.destroy_connection()
+		selected_obj = hit_obj
+		selected_obj.select()
+	else:
+		current_connection = Connection.new(selected_obj, hit_obj)
+		current_connection.connect("connection_broken", self, "on_connection_broken")
+		selected_obj = null
+		hit_obj.select()
+		get_parent().add_child(current_connection)
+
+func on_connection_broken():
+	current_connection = null

@@ -1,14 +1,10 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://Scenes/Player.tscn" type="PackedScene" id=1]
-[ext_resource path="res://Scripts/Connection.gd" type="Script" id=2]
-[ext_resource path="res://Scripts/SelectableBody.gd" type="Script" id=3]
+[ext_resource path="res://Scenes/TestSelectableObject.tscn" type="PackedScene" id=2]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 131.368, 10.2518 )
-
-[sub_resource type="CircleShape2D" id=2]
-radius = 20.0
 
 [node name="Node2D" type="Node2D"]
 
@@ -25,17 +21,10 @@ __meta__ = {
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
 shape = SubResource( 1 )
 
-[node name="Line2D" type="Line2D" parent="."]
-script = ExtResource( 2 )
+[node name="Object" parent="." instance=ExtResource( 2 )]
+position = Vector2( 378.96, 315.515 )
+linear_velocity = Vector2( 10, 0 )
 
-[node name="Object" type="RigidBody2D" parent="."]
-position = Vector2( 196.54, 254.574 )
-collision_layer = 16
-collision_mask = 63
-mode = 2
-mass = 5.0
-linear_damp = 10.0
-script = ExtResource( 3 )
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Object"]
-shape = SubResource( 2 )
+[node name="Object2" parent="." instance=ExtResource( 2 )]
+position = Vector2( 378.96, 227.205 )
+linear_velocity = Vector2( 10, 0 )
