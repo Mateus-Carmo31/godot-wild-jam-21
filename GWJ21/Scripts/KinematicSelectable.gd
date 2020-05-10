@@ -38,6 +38,8 @@ func on_collision(knockback_dir : Vector2, collision_speed : float):
 func _physics_process(delta):
 	
 	velocity = move_and_slide(velocity)
+	
+	velocity *= pow(1.0-0.3, delta * 10.0)
 
 func _process(delta):
 	update()

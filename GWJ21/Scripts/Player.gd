@@ -10,6 +10,10 @@ const DAZED_DAMP = 0.2
 
 var dazed : bool = false # WIP
 
+var pushed_body = null
+var pushed_dir = null
+var push_force = ACCEL * 10.0
+
 var selected_obj = null
 var current_connection : Connection = null
 
@@ -44,20 +48,31 @@ func _physics_process(delta):
 		else:
 			velocity *= pow(1.0-DAZED_DAMP, delta * 5)
 	
-	if dazed:
-		var cur_mag = velocity.length()
-		if cur_mag <= 40 and cur_mag > 20:
-			print("Skip available!")
-			if input != Vector2.ZERO:
-				print("Skipped!")
-				dazed = false
-				velocity = Vector2()
-		elif cur_mag <= 20:
-			print("Reset to not dazed!")
-			dazed = false
-			velocity = Vector2()
+#	if dazed:
+#		var cur_mag = velocity.length()
+#		if cur_mag <= 40 and cur_mag > 20:
+#			print("Skip available!")
+#			if input != Vector2.ZERO:
+#				print("Skipped!")
+#				dazed = false
+#				velocity = Vector2()
+#		elif cur_mag <= 20:
+#			print("Reset to not dazed!")
+#			dazed = false
+#			velocity = Vector2()
 	
-	velocity = move_and_slide(velocity)
+	if pushed_body != null and pushed_dir == velocity.normalized():
+		pushed_body.velocity += velocity.normalized() * delta * push_force
+	elif pushed_body != null and pushed_dir != velocity.normalized():
+		pushed_body = null
+		pushed_dir = null
+	
+	var col = move_and_collide(velocity * delta)
+	if col:
+		var collider = col.collider
+		collider.velocity += velocity.normalized() * delta * push_force
+		pushed_body = col.collider
+		pushed_dir = velocity.normalized()
 	
 	if Input.is_action_just_pressed("shoot"):
 		var shoot_dir = (get_global_mouse_position() - position).normalized()
