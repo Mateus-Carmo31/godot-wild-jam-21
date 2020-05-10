@@ -1,7 +1,7 @@
 extends KinematicBody2D
 class_name KinematicSelectable
 
-export var speed_to_break = 100.0
+export(float, 0, 1000, 10) var speed_to_break = 100.0
 export(float, 1, 10, 0.1) var mass = 1
 
 var is_selected = false
@@ -25,12 +25,13 @@ func get_collision_area() -> Area2D:
 
 func pull_towards(dir : Vector2, pull_accel : float, delta : float):
 	velocity += dir * pull_accel * delta * (1.0/mass)
+	print(velocity.length())
 
 func get_speed_projected_on_dir(dir : Vector2):
 	return velocity.project(dir).length()
 
 func on_collision(knockback_dir : Vector2, collision_speed : float):
-	if collision_speed >= speed_to_break:
+	if speed_to_break > 0 and collision_speed >= speed_to_break:
 		queue_free()
 	else:
 		emit_signal("connection_released")
@@ -39,7 +40,7 @@ func _physics_process(delta):
 	
 	velocity = move_and_slide(velocity)
 	
-	velocity *= pow(1.0-0.3, delta * 10.0)
+	velocity *= pow((10.0-mass)/10, delta * 10.0)
 
 func _process(delta):
 	update()

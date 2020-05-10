@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://Scenes/Player.tscn" type="PackedScene" id=1]
-[ext_resource path="res://Scenes/Tests/TestSelectableObject.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Scenes/Tests/TestKinematicSelectable2.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Scenes/FollowCamera2D.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Scenes/Tests/TestKinematicSelectable.tscn" type="PackedScene" id=4]
 
@@ -25,16 +25,15 @@ __meta__ = {
 shape = SubResource( 1 )
 
 [node name="Object" parent="." instance=ExtResource( 2 )]
-position = Vector2( -73.1491, 283.786 )
-can_sleep = false
-linear_damp = 0.5
-
-[node name="Object2" parent="." instance=ExtResource( 2 )]
-position = Vector2( 548.96, 238.977 )
-speed_to_break = 200.0
+position = Vector2( 78.1928, 254.941 )
 
 [node name="KinematicSelectable" parent="." instance=ExtResource( 4 )]
 position = Vector2( 116.312, 24.5548 )
+speed_to_break = 200.0
+mass = 2.0
+
+[node name="KinematicSelectable2" parent="." instance=ExtResource( 4 )]
+position = Vector2( 276.93, 34.3315 )
 
 [node name="Camera2D" parent="." instance=ExtResource( 3 )]
 player = NodePath("../Player")

@@ -12,7 +12,7 @@ var dazed : bool = false # WIP
 
 var pushed_body = null
 var pushed_dir = null
-var push_force = ACCEL * 10.0
+var push_force = ACCEL * 20.0
 
 var selected_obj = null
 var current_connection : Connection = null
@@ -69,10 +69,13 @@ func _physics_process(delta):
 	
 	var col = move_and_collide(velocity * delta)
 	if col:
-		var collider = col.collider
-		collider.velocity += velocity.normalized() * delta * push_force
-		pushed_body = col.collider
-		pushed_dir = velocity.normalized()
+		if col.collider is KinematicSelectable:
+			var collider = col.collider
+			collider.velocity += velocity.normalized() * delta * push_force
+			pushed_body = col.collider
+			pushed_dir = velocity.normalized()
+		else:
+			velocity = velocity.slide(col.normal)
 	
 	if Input.is_action_just_pressed("shoot"):
 		var shoot_dir = (get_global_mouse_position() - position).normalized()
