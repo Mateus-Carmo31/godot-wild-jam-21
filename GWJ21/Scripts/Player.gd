@@ -10,7 +10,7 @@ const DAZED_DAMP = 0.2
 
 var dazed : bool = false # WIP
 
-var selected_obj : SelectableBody = null
+var selected_obj = null
 var current_connection : Connection = null
 
 func _ready():
@@ -21,6 +21,10 @@ func _ready():
 		LayerManager.LAYERS.OBJECTS |
 		LayerManager.LAYERS.WALLS
 	)
+	
+	$Hitbox.collision_layer = collision_layer
+	$Hitbox.collision_mask = (LayerManager.LAYERS.ENEMIES | 
+							  LayerManager.LAYERS.ENEMY_PROJECTILES)
 
 var velocity : Vector2
 func _physics_process(delta):
@@ -85,14 +89,13 @@ func on_projectile_miss():
 	print("Missed!")
 
 func on_projectile_hit(hit_obj):
-	print("Hit ", hit_obj.name)
 	
 	if selected_obj == null:
 		if current_connection != null:
 			current_connection.destroy_connection()
 		selected_obj = hit_obj
 		selected_obj.select()
-	else:
+	elif hit_obj != selected_obj:
 		current_connection = Connection.new(selected_obj, hit_obj)
 		current_connection.connect("connection_broken", self, "on_connection_broken")
 		selected_obj = null

@@ -1,14 +1,17 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://Scenes/Player.tscn" type="PackedScene" id=1]
-[ext_resource path="res://Scenes/TestSelectableObject.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Scenes/Tests/TestSelectableObject.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Scenes/FollowCamera2D.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Scenes/Tests/TestKinematicSelectable.tscn" type="PackedScene" id=4]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 131.368, 10.2518 )
 
-[node name="Node2D" type="Node2D"]
+[node name="YSort" type="YSort"]
 
 [node name="Player" parent="." instance=ExtResource( 1 )]
+position = Vector2( 289, 185 )
 
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
 position = Vector2( 359.034, 405.461 )
@@ -22,9 +25,16 @@ __meta__ = {
 shape = SubResource( 1 )
 
 [node name="Object" parent="." instance=ExtResource( 2 )]
-position = Vector2( 378.96, 315.515 )
-linear_velocity = Vector2( 10, 0 )
+position = Vector2( -73.1491, 283.786 )
+can_sleep = false
+linear_damp = 0.5
 
 [node name="Object2" parent="." instance=ExtResource( 2 )]
-position = Vector2( 378.96, 227.205 )
-linear_velocity = Vector2( 10, 0 )
+position = Vector2( 548.96, 238.977 )
+speed_to_break = 200.0
+
+[node name="KinematicSelectable" parent="." instance=ExtResource( 4 )]
+position = Vector2( 116.312, 24.5548 )
+
+[node name="Camera2D" parent="." instance=ExtResource( 3 )]
+target = NodePath("../../YSort/Player")

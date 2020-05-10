@@ -18,7 +18,6 @@ func launch(launch_dir : Vector2):
 	$DestroySelf.start()
 
 func _physics_process(delta):
-	
 	position += dir * SPEED * delta
 
 func _on_DestroySelf_timeout():
