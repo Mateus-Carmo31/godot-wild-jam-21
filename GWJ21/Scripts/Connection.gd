@@ -19,7 +19,6 @@ func _init(o1, o2):
 	self.body2 = o2
 	
 	o1.get_collision_area().connect("area_entered", self, "on_hitbox_entered", [o1])
-	o2.get_collision_area().connect("area_entered", self, "on_hitbox_entered", [o2])
 	o1.connect("connection_released", self, "destroy_connection")
 	o2.connect("connection_released", self, "destroy_connection")
 	
@@ -40,6 +39,10 @@ func _physics_process(delta):
 
 func destroy_connection():
 	emit_signal("connection_broken")
+	
+	body1.get_collision_area().disconnect("area_entered", self, "on_hitbox_entered")
+	body1.disconnect("connection_released", self, "destroy_connection")
+	body2.disconnect("connection_released", self, "destroy_connection")
 	body1.is_selected = false
 	body2.is_selected = false
 	
@@ -59,17 +62,15 @@ func on_hitbox_entered(detected_area, detecting_body):
 	var detected_body = detected_area.get_parent()
 	
 	var body1_to_body2 = body1.position.direction_to(body2.position)
+	var body2_to_body1 = body2.position.direction_to(body1.position)
 	
 	if detecting_body == body1 and detected_body == body2:
-		var collision_speed = body2.get_speed_projected_on_dir(body1_to_body2)
+		var collision_speed : float = 0
+		collision_speed += body2.get_speed_projected_on_dir(body1_to_body2)
+		print(body2.name, " at speed ", collision_speed)
+		collision_speed += body1.get_speed_projected_on_dir(body1_to_body2)
+		print(body1.name, " at speed ", body1.get_speed_projected_on_dir(body1_to_body2))
 		print(body1.name, ": hit with speed ", collision_speed)
-		body1.on_collision(collision_speed)
-		body2.on_collision(collision_speed)
-		destroy_connection()
-	
-	elif detecting_body == body2 and detected_body == body1:
-		var collision_speed = body1.get_speed_projected_on_dir(body1_to_body2)
-		print(body2.name, ": hit with speed ", collision_speed)
-		body1.on_collision(collision_speed)		
-		body2.on_collision(collision_speed)
+		body1.call_deferred("on_collision", -body1_to_body2, collision_speed)
+		body2.call_deferred("on_collision", -body2_to_body1, collision_speed)
 		destroy_connection()

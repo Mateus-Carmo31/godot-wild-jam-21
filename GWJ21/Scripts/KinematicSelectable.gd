@@ -12,11 +12,13 @@ signal connection_released
 
 func _ready():
 	collision_layer = LayerManager.LAYERS.ENEMIES
-	collision_mask = LayerManager.get_all_layers([LayerManager.LAYERS.MISC])
+	collision_mask = LayerManager.get_all_layers([
+		LayerManager.LAYERS.CONNECTION_HITBOX,
+		LayerManager.LAYERS.MISC
+	])
 	
-	$SelectHitbox.collision_layer = collision_layer
-	$SelectHitbox.collision_mask = (LayerManager.LAYERS.SELECTABLE_OBJECTS |
-							  LayerManager.LAYERS.ENEMIES)
+	$SelectHitbox.collision_layer = LayerManager.LAYERS.CONNECTION_HITBOX
+	$SelectHitbox.collision_mask = LayerManager.LAYERS.CONNECTION_HITBOX
 
 func get_collision_area() -> Area2D:
 	return $SelectHitbox as Area2D
@@ -27,7 +29,7 @@ func pull_towards(dir : Vector2, pull_accel : float, delta : float):
 func get_speed_projected_on_dir(dir : Vector2):
 	return velocity.project(dir).length()
 
-func on_collision(collision_speed : float):
+func on_collision(knockback_dir : Vector2, collision_speed : float):
 	if collision_speed >= speed_to_break:
 		queue_free()
 	else:

@@ -37,4 +37,4 @@ speed_to_break = 200.0
 position = Vector2( 116.312, 24.5548 )
 
 [node name="Camera2D" parent="." instance=ExtResource( 3 )]
-target = NodePath("../../YSort/Player")
+player = NodePath("../Player")
