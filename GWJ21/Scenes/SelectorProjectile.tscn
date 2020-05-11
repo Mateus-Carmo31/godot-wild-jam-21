@@ -2,7 +2,6 @@
 
 [ext_resource path="res://Scripts/SelectorProjectile.gd" type="Script" id=1]
 
-
 [sub_resource type="CircleShape2D" id=1]
 
 [node name="Selector" type="Area2D"]
@@ -12,5 +11,5 @@ script = ExtResource( 1 )
 shape = SubResource( 1 )
 
 [node name="DestroySelf" type="Timer" parent="."]
-[connection signal="body_entered" from="." to="." method="_on_Selector_body_entered"]
+[connection signal="area_entered" from="." to="." method="_on_Selector_area_entered"]
 [connection signal="timeout" from="DestroySelf" to="." method="_on_DestroySelf_timeout"]

@@ -8,7 +8,7 @@
 radius = 25.0
 
 [sub_resource type="CircleShape2D" id=2]
-radius = 27.0
+radius = 30.1195
 
 [node name="KinematicSelectable" instance=ExtResource( 1 )]
 script = ExtResource( 2 )

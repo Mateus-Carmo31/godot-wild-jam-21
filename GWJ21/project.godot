@@ -18,16 +18,10 @@ _global_script_classes=[ {
 "class": "KinematicSelectable",
 "language": "GDScript",
 "path": "res://Scripts/KinematicSelectable.gd"
-}, {
-"base": "RigidBody2D",
-"class": "RigidSelectable",
-"language": "GDScript",
-"path": "res://Scripts/RigidSelectable.gd"
 } ]
 _global_script_class_icons={
 "Connection": "",
-"KinematicSelectable": "",
-"RigidSelectable": ""
+"KinematicSelectable": ""
 }
 
 [application]
@@ -106,5 +100,5 @@ special={
 
 [rendering]
 
-environment/default_clear_color=Color( 0.133333, 0.12549, 0.203922, 1 )
+quality/2d/use_pixel_snap=true
 environment/default_environment="res://default_env.tres"

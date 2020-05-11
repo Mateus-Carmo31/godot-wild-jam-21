@@ -11,7 +11,7 @@ extents = Vector2( 131.368, 10.2518 )
 [node name="YSort" type="YSort"]
 
 [node name="Player" parent="." instance=ExtResource( 1 )]
-position = Vector2( 289, 185 )
+position = Vector2( 256.813, 187.438 )
 
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
 position = Vector2( 359.034, 405.461 )
@@ -25,15 +25,23 @@ __meta__ = {
 shape = SubResource( 1 )
 
 [node name="Object" parent="." instance=ExtResource( 2 )]
-position = Vector2( 78.1928, 254.941 )
+position = Vector2( 77.3354, 254.941 )
+
+[node name="Object2" parent="." instance=ExtResource( 2 )]
+position = Vector2( 577.275, 254.941 )
+
+[node name="Object3" parent="." instance=ExtResource( 2 )]
+position = Vector2( 312.346, 297.81 )
+is_static = true
 
 [node name="KinematicSelectable" parent="." instance=ExtResource( 4 )]
 position = Vector2( 116.312, 24.5548 )
-speed_to_break = 200.0
-mass = 2.0
+health = 2
+mass = 4.0
 
 [node name="KinematicSelectable2" parent="." instance=ExtResource( 4 )]
-position = Vector2( 276.93, 34.3315 )
+position = Vector2( 401.249, 24.9004 )
+is_static = true
 
 [node name="Camera2D" parent="." instance=ExtResource( 3 )]
 player = NodePath("../Player")

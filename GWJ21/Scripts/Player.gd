@@ -1,6 +1,6 @@
 extends KinematicBody2D
 
-const SELECTOR : PackedScene = preload("res://Scenes/Projectile.tscn")
+const SELECTOR : PackedScene = preload("res://Scenes/SelectorProjectile.tscn")
 
 const ACCEL = 10
 const MAX_SPEED = 150
