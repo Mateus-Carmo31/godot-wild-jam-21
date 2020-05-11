@@ -18,10 +18,16 @@ _global_script_classes=[ {
 "class": "KinematicSelectable",
 "language": "GDScript",
 "path": "res://Scripts/KinematicSelectable.gd"
+}, {
+"base": "Area2D",
+"class": "Room",
+"language": "GDScript",
+"path": "res://Scripts/Room.gd"
 } ]
 _global_script_class_icons={
 "Connection": "",
-"KinematicSelectable": ""
+"KinematicSelectable": "",
+"Room": ""
 }
 
 [application]

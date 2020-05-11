@@ -28,8 +28,8 @@ func _init(o1, o2):
 func _physics_process(delta):
 	
 	if body1 and body2:
-		set_point_position(0, body1.position)
-		set_point_position(1, body2.position)
+		set_point_position(0, body1.global_position)
+		set_point_position(1, body2.global_position)
 		
 		if Input.is_action_pressed("special"):
 			body1.is_being_pulled = true

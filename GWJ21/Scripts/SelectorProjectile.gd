@@ -36,3 +36,11 @@ func _on_Selector_area_entered(area):
 		emit_signal("missed")
 	
 	queue_free() # WIP: Clean up after self
+
+func _on_Selector_body_entered(body):
+	
+	# Since nothing that is in the interact_mask is a body,
+	# ignore any collisions in this signal
+	
+	emit_signal("missed")
+	queue_free()
