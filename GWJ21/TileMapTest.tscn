@@ -25,6 +25,7 @@ tile_data = PoolIntArray( -262160, 5, 0, -262159, 5, 1, -262158, 5, 1, -262157, 
 position = Vector2( 161.547, 178.695 )
 
 [node name="Camera2D" parent="." instance=ExtResource( 3 )]
+follow_factor = 0.1
 player = NodePath("../Player")
 
 [node name="Room" parent="." instance=ExtResource( 4 )]
@@ -38,6 +39,11 @@ position = Vector2( 284.263, 107.515 )
 
 [node name="Object" parent="." instance=ExtResource( 5 )]
 position = Vector2( 196.323, 395.483 )
+
+[node name="Object3" parent="." instance=ExtResource( 5 )]
+position = Vector2( -7.55518, 408.779 )
+scale = Vector2( 2, 2 )
+is_static = true
 
 [node name="Object2" parent="." instance=ExtResource( 5 )]
 position = Vector2( 418.684, 145.429 )
