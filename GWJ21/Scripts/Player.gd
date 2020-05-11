@@ -17,6 +17,9 @@ var push_force = ACCEL * 20.0
 var selected_obj = null
 var current_connection : Connection = null
 
+onready var animation_tree = $AnimationTree
+onready var animation_state = $AnimationTree.get("parameters/playback")
+
 func _ready():
 	collision_layer = LayerManager.LAYERS.PLAYER
 	collision_mask = (
@@ -29,6 +32,8 @@ func _ready():
 	$Hitbox.collision_layer = collision_layer
 	$Hitbox.collision_mask = (LayerManager.LAYERS.ENEMIES | 
 							  LayerManager.LAYERS.ENEMY_PROJECTILES)
+	
+	animation_tree.active = true
 
 var velocity : Vector2
 func _physics_process(delta):
@@ -39,12 +44,17 @@ func _physics_process(delta):
 		velocity += input * ACCEL
 		velocity = velocity.clamped(MAX_SPEED)
 		
+		$Sprite.flip_h = velocity.x < 0
+		
 		# Applies damping if the player turns too suddenly
 		if input.dot(velocity.normalized()) < -0.5:
 			velocity *= pow(1.0-TURN_DAMP, delta * 10)
+		
+		animation_state.travel("Move")
 	else:
 		if not dazed:
 			velocity *= pow(1.0-STOP_DAMP, delta * 10)
+			animation_state.travel("Idle")
 		else:
 			velocity *= pow(1.0-DAZED_DAMP, delta * 5)
 	
@@ -78,8 +88,18 @@ func _physics_process(delta):
 			velocity = velocity.slide(col.normal)
 	
 	if Input.is_action_just_pressed("shoot"):
-		var shoot_dir = (get_global_mouse_position() - position).normalized()
+		var shoot_dir = (get_global_mouse_position() - $LaunchPoint.global_position).normalized()
 		call_deferred("launch_projectile", shoot_dir)
+	
+	if Input.is_action_just_pressed("ui_cancel"):
+		if selected_obj != null:
+			selected_obj.deselect()
+			selected_obj = null
+		elif current_connection != null:
+			current_connection.destroy_connection(false)
+	
+	if Input.is_action_just_pressed("special"):
+		current_connection.start_pull()
 	
 	modulate = Color.red if dazed else Color.white
 
@@ -99,7 +119,7 @@ func launch_projectile(dir : Vector2):
 	proj.connect("missed", self, "on_projectile_miss")
 	proj.connect("hit_something", self, "on_projectile_hit")
 	
-	proj.position = position
+	proj.position = $LaunchPoint.global_position
 	get_parent().add_child(proj)
 	proj.launch(dir)
 

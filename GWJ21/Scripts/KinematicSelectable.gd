@@ -38,15 +38,10 @@ func get_speed_projected_on_dir(dir : Vector2):
 	return velocity.project(dir).length()
 
 # Collisions still don't feel right, but for now it will do
+# knockback_dir is currently obsolete, maybe remove?
 func on_collision(knockback_dir : Vector2, collided_with : KinematicSelectable):
 	
-	print(name, "'s final velocity: ", velocity.length() * mass)
-	if velocity.length() * mass >= DAMAGE_DEALING_MOMENTUM:
-		take_damage(damage)
-	
-	if collided_with.velocity.length() * collided_with.mass >= DAMAGE_DEALING_MOMENTUM:
-		take_damage(collided_with.damage)
-	
+	take_damage(collided_with.damage)
 	set_deferred("velocity", -velocity * 0.5)
 
 func take_damage(damage_taken : int):
