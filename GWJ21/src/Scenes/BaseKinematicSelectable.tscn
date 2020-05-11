@@ -1,0 +1,5 @@
+[gd_scene format=2]
+
+[node name="KinematicSelectable" type="KinematicBody2D"]
+
+[node name="SelectHitbox" type="Area2D" parent="."]
