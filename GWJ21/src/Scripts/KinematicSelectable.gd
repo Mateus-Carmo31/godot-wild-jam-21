@@ -3,7 +3,7 @@ class_name KinematicSelectable
 
 export(bool) var unbreakable = false
 export(bool) var is_static = false
-export(bool) var takes_self_damage = false
+export(bool) var is_pushable = true
 export(int, 1, 10) var health = 1
 export(int, 1, 5) var damage = 1
 export(float, 1, 10, 0.1) var mass = 1
@@ -24,15 +24,15 @@ func _ready():
 	
 	$SelectHitbox.collision_layer = LayerManager.LAYERS.CONNECTION_HITBOX
 	$SelectHitbox.collision_mask = LayerManager.LAYERS.CONNECTION_HITBOX
+	
+	if is_static:
+		is_pushable = false
 
 func get_collision_area() -> Area2D:
 	return $SelectHitbox as Area2D
 
 func _pull_towards(dir : Vector2, pull_accel : float, delta : float):
 	velocity += dir * pull_accel * delta
-
-func get_speed_projected_on_dir(dir : Vector2):
-	return velocity.project(dir).length()
 
 # Collisions still don't feel right, but for now it will do
 # knockback_dir is currently obsolete, maybe remove?
@@ -44,7 +44,6 @@ func _on_collision(collided_with : KinematicSelectable):
 func take_damage(damage_taken : int):
 	if not unbreakable:
 		health = max(health-damage_taken, 0)
-		print(name, " took ", damage_taken, " damage! (Current health: ", health, ")")
 
 func _physics_process(delta):
 	

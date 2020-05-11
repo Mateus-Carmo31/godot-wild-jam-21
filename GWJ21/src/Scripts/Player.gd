@@ -69,7 +69,7 @@ func _physics_process(delta):
 	var col = move_and_collide(velocity * delta)
 	if col:
 		var collider = col.collider
-		if collider is KinematicSelectable and collider.is_static == false:
+		if collider is KinematicSelectable and collider.is_pushable == true:
 			collider.velocity += velocity.normalized() * delta * push_force
 			pushed_body = col.collider
 			pushed_dir = velocity.normalized()
