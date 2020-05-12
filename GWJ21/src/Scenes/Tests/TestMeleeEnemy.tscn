@@ -11,7 +11,7 @@ radius = 17.0
 radius = 20.0
 
 [sub_resource type="RectangleShape2D" id=3]
-extents = Vector2( 17.6367, 28.7784 )
+extents = Vector2( 8, 18 )
 
 [node name="Enemy" type="KinematicBody2D"]
 script = ExtResource( 2 )
@@ -32,19 +32,9 @@ shape = SubResource( 2 )
 
 [node name="AttackPivot" type="Node2D" parent="."]
 
-[node name="AttackHitbox" type="Area2D" parent="AttackPivot"]
-position = Vector2( 39.112, 0 )
-input_pickable = false
-linear_damp = 0.0
-angular_damp = 0.0
-__meta__ = {
-"_edit_group_": true
-}
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="AttackPivot/AttackHitbox"]
-shape = SubResource( 3 )
-
 [node name="StateSwitchTimer" type="Timer" parent="."]
+process_mode = 0
+one_shot = true
 
 [node name="Weapon" type="Sprite" parent="."]
 position = Vector2( -35.1368, 29.9795 )
@@ -54,4 +44,20 @@ offset = Vector2( 0, -7.5 )
 region_enabled = true
 region_rect = Rect2( 16, 2, 8, 15 )
 
+[node name="AttackHitbox" type="Area2D" parent="Weapon"]
+position = Vector2( 0, -9.54919 )
+scale = Vector2( 0.25, 0.25 )
+input_pickable = false
+linear_damp = 0.0
+angular_damp = 0.0
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Weapon/AttackHitbox"]
+shape = SubResource( 3 )
+
 [node name="Tween" type="Tween" parent="."]
+playback_process_mode = 0
+[connection signal="body_entered" from="Weapon/AttackHitbox" to="." method="_on_AttackHitbox_body_entered"]
+[connection signal="tween_all_completed" from="Tween" to="." method="end_attack"]
