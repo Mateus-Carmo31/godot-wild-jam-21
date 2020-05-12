@@ -36,7 +36,7 @@ func _physics_process(delta):
 			body1.is_being_pulled = false
 			body2.is_being_pulled = false
 
-func destroy_connection(trigger_screen_shake = true):
+func destroy_connection(screen_shake_strength = 0.3):
 	emit_signal("connection_broken")
 	
 	body1.get_collision_area().disconnect("area_entered", self, "on_hitbox_entered")
@@ -45,8 +45,7 @@ func destroy_connection(trigger_screen_shake = true):
 	body1.deselect()
 	body2.deselect()
 	
-	if trigger_screen_shake:
-		Events.emit_signal("screen_shake", 0.3)
+	Events.emit_signal("screen_shake", screen_shake_strength)
 	
 	body1 = null
 	body2 = null

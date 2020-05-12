@@ -3,8 +3,8 @@ extends KinematicBody2D
 const SELECTOR : PackedScene = preload("res://src/Scenes/SelectorProjectile.tscn")
 const BOOK : PackedScene = preload("res://src/Scenes/Weapons/PlayerBook.tscn")
 
-const ACCEL = 10
-const MAX_SPEED = 150
+const ACCEL = 12
+const MAX_SPEED = 160
 const TURN_DAMP = 0.65
 const STOP_DAMP = 0.8
 const DAZED_DAMP = 0.2
@@ -63,7 +63,10 @@ func movement(delta):
 	
 	if input != Vector2.ZERO and not is_dashing:
 		velocity += input * ACCEL
-		velocity = velocity.clamped(MAX_SPEED)
+		if current_connection == null:
+			velocity = velocity.clamped(MAX_SPEED)
+		else:
+			velocity = velocity.clamped(MAX_SPEED/3.0)
 		
 		# Applies damping if the player turns too suddenly
 		if input.dot(velocity.normalized()) < -0.5:
@@ -106,7 +109,7 @@ func movement(delta):
 			selected_obj.deselect()
 			selected_obj = null
 		elif current_connection != null:
-			current_connection.destroy_connection(false)
+			current_connection.destroy_connection(0.0)
 	
 	if Input.is_action_just_pressed("special"):
 		if current_connection:
@@ -121,10 +124,10 @@ func movement(delta):
 		is_dashing = true
 		
 		if current_connection:
-			pass
+			current_connection.destroy_connection(0.2)
 		
 		velocity = input * MAX_SPEED * 2.0
-		$Sprite.flip_h = velocity.x < 0
+		update_facing()
 		$DashTrail.emitting = true
 		$DashTrail.process_material.set("shader_param/invert", $Sprite.flip_h)
 		get_tree().create_timer(0.5).connect("timeout", self, "stop_dash")
@@ -191,7 +194,7 @@ func on_projectile_hit(hit_obj):
 	
 	if selected_obj == null:
 		if current_connection != null:
-			current_connection.destroy_connection(false)
+			current_connection.destroy_connection(0.0)
 		selected_obj = hit_obj
 		selected_obj.select()
 	elif hit_obj != selected_obj:
