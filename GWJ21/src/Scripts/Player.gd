@@ -1,13 +1,17 @@
 extends KinematicBody2D
 
 const SELECTOR : PackedScene = preload("res://src/Scenes/SelectorProjectile.tscn")
+const BOOK : PackedScene = preload("res://src/Scenes/Weapons/PlayerBook.tscn")
 
 const ACCEL = 10
 const MAX_SPEED = 150
 const TURN_DAMP = 0.65
 const STOP_DAMP = 0.8
 const DAZED_DAMP = 0.2
+const KNOCKBACK_FORCE = 200.0
+const BOOK_DIST = 50.0
 
+var invulnerable : bool = false # WIP
 var dazed : bool = false # WIP
 var is_dashing : bool = false # WIP
 var is_casting : bool = false
@@ -19,8 +23,10 @@ var push_force = ACCEL * 20.0
 var selected_obj = null
 var current_connection : Connection = null
 
+onready var invul_timer = $InvincibilityTimer
 onready var animation_tree = $AnimationTree
 onready var animation_state = $AnimationTree.get("parameters/playback")
+onready var current_book = BOOK.instance()
 
 func _ready():
 	collision_layer = LayerManager.LAYERS.PLAYER
@@ -36,17 +42,28 @@ func _ready():
 							  LayerManager.LAYERS.ENEMY_PROJECTILES)
 	
 	animation_tree.active = true
+	
+	get_parent().call_deferred("add_child", current_book)
+	current_book.target = $BookPointL.get_path()
+	current_book.global_position = $BookPointL.global_position
 
 var velocity : Vector2
 func _physics_process(delta):
 	
+	if not dazed:
+		movement(delta)
+	else:
+		dazed_state(delta)
+
+func movement(delta):
+	
 	var input = get_player_input()
 	
-	if input != Vector2.ZERO and not dazed and not is_dashing:
+	if input != Vector2.ZERO and not is_dashing:
 		velocity += input * ACCEL
 		velocity = velocity.clamped(MAX_SPEED)
 		
-		$Sprite.flip_h = velocity.x < 0
+		update_facing()
 		
 		# Applies damping if the player turns too suddenly
 		if input.dot(velocity.normalized()) < -0.5:
@@ -54,11 +71,9 @@ func _physics_process(delta):
 		
 		animation_state.travel("Move")
 	else:
-		if not dazed and not is_dashing:
+		if not is_dashing:
 			velocity *= pow(1.0-STOP_DAMP, delta * 10)
 			animation_state.travel("Idle")
-		elif dazed:
-			velocity *= pow(1.0-DAZED_DAMP, delta * 5)
 	
 	if pushed_body != null and pushed_dir == velocity.normalized():
 		pushed_body.velocity += velocity.normalized() * delta * push_force
@@ -87,20 +102,41 @@ func _physics_process(delta):
 		elif current_connection != null:
 			current_connection.destroy_connection(false)
 	
+	if is_casting:
+		update_facing()
+	
 	if Input.is_action_just_pressed("special"):
 		if current_connection:
 			current_connection.start_pull()
-	elif Input.is_action_just_released("special"):
+			is_casting = true
+	elif Input.is_action_just_released("special") or is_casting == false:
 		if current_connection:
 			current_connection.is_pulling = false
+			is_casting = false
 	
-	if not is_casting and input != Vector2.ZERO and Input.is_action_just_pressed("dash"):
+	if input != Vector2.ZERO and Input.is_action_just_pressed("dash"):
 		is_dashing = true
+		is_casting = false
 		velocity = input * MAX_SPEED * 2.0
 		$Sprite.flip_h = velocity.x < 0
 		$DashTrail.emitting = true
 		$DashTrail.process_material.set("shader_param/invert", $Sprite.flip_h)
 		get_tree().create_timer(0.5).connect("timeout", self, "stop_dash")
+
+func dazed_state(delta):
+	
+	velocity = move_and_slide(velocity)
+	
+	velocity *= pow(1.0-DAZED_DAMP, delta * 10)
+	
+	var input = get_player_input()
+	
+	if input != Vector2.ZERO and invul_timer.time_left < invul_timer.wait_time / 5.0:
+		dazed = false
+		animation_state.travel("Idle")
+	elif invulnerable == false:
+		dazed = false
+		animation_state.travel("Idle")
 
 func stop_dash():
 	is_dashing = false
@@ -116,6 +152,22 @@ func get_player_input() -> Vector2:
 	input_vec.y += int(Input.is_action_pressed("move_down"))
 	
 	return input_vec.normalized()
+
+func update_facing():
+	if not is_casting:
+		if velocity.x < 0:
+			$Sprite.flip_h = true
+			current_book.target = $BookPointR.get_path()
+		else:
+			$Sprite.flip_h = false
+			current_book.target = $BookPointL.get_path()
+		
+		current_book.set_offset(Vector2.ZERO, 0)
+	else:
+		var cast_dir = $LaunchPoint.global_position.direction_to(get_global_mouse_position())
+		$Sprite.flip_h = cast_dir.x < 0
+		current_book.target = $LaunchPoint.get_path()
+		current_book.set_offset(cast_dir, BOOK_DIST)
 
 func launch_projectile(dir : Vector2):
 	var proj = SELECTOR.instance()
@@ -145,3 +197,18 @@ func on_projectile_hit(hit_obj):
 
 func on_connection_broken():
 	current_connection = null
+
+func on_hit(knockback_dir : Vector2):
+	if not dazed and not invulnerable:
+		velocity += knockback_dir * KNOCKBACK_FORCE
+		dazed = true
+		invulnerable = true
+		animation_state.travel("Invulnerable")
+		Events.emit_signal("screen_shake", 0.2)
+		
+		invul_timer.start()
+
+func _on_InvincibilityTimer_timeout():
+	invulnerable = false
+	if $Sprite.visible == false:
+		$Sprite.visible = true

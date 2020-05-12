@@ -1,7 +1,9 @@
 extends Enemy
 
 enum {ATTACK, COOLDOWN, APPROACH, DAZED, SPECIAL}
+enum AttackMode {SLASH, STAB}
 
+export(AttackMode) var attack_mode
 export(float) var attack_telegraph = 0.6
 export(float) var attack_cooldown = 1.0
 export(float, 50, 100, 1) var min_attack_dist := 50.0
@@ -18,6 +20,7 @@ func _ready():
 	
 	$Weapon/AttackHitbox.collision_layer = LayerManager.LAYERS.MISC
 	$Weapon/AttackHitbox.collision_mask = LayerManager.LAYERS.PLAYER
+	$Weapon/AttackHitbox.connect("body_entered", self, "_on_hitbox_entered")
 
 func _on_collision(collided_with : KinematicSelectable):
 	._on_collision(collided_with)
@@ -49,6 +52,7 @@ func approach_state(delta):
 		
 		current_facing = velocity.x < 0
 		update_facing(delta)
+		$Weapon.rotation = 0
 	
 	velocity = move_and_slide(velocity)
 	
@@ -63,28 +67,66 @@ func approach_state(delta):
 			print("Reached!")
 			velocity = Vector2.ZERO
 			state = ATTACK
-			$StateSwitchTimer.connect("timeout", self, "attack")
+			if attack_mode == AttackMode.SLASH:
+				$StateSwitchTimer.connect("timeout", self, "slash_attack")
+			elif attack_mode == AttackMode.STAB:
+				$StateSwitchTimer.connect("timeout", self, "stab_attack")
+			
 			$StateSwitchTimer.start(attack_telegraph)
 
 func attack_state(delta):
 	if current_player:
 		$AttackPivot.look_at(get_node(current_player).global_position)
-		$Weapon.position = lerp($Weapon.position, $AttackPivot.position, delta * 5.0)
-		$Weapon.rotation = lerp($Weapon.rotation,
-								$AttackPivot.rotation + PI/4.0,
-								delta * 5)
+		
+		if attack_mode == AttackMode.SLASH:
+			$Weapon.position = lerp($Weapon.position, $AttackPivot.position, delta * 5.0)
+			
+			if current_facing == true:
+				$Weapon.rotation = lerp_angle($Weapon.rotation, $AttackPivot.rotation+deg2rad(180.0), delta * 5.0)
+			else:
+				$Weapon.rotation = lerp_angle($Weapon.rotation, $AttackPivot.rotation, delta * 5.0)
+		else:
+			
+			var forward_dir = Vector2(cos($AttackPivot.rotation), sin($AttackPivot.rotation))
+			$Weapon.position = lerp($Weapon.position, $AttackPivot.position - forward_dir * 30.0, delta*5.0)
+			
+			$Weapon.rotation = lerp_angle($Weapon.rotation, $AttackPivot.rotation+deg2rad(90.0), delta * 5.0)
 
-func attack():
+
+func slash_attack():
 	
-	$StateSwitchTimer.disconnect("timeout", self, "attack")
+	$StateSwitchTimer.disconnect("timeout", self, "slash_attack")
 	
 	hitbox_on = true
-	$Tween.interpolate_property($Weapon, "rotation",
-								$Weapon.rotation,
-								$Weapon.rotation+PI/2.0,
+	if current_facing == true:
+		$Tween.interpolate_property($Weapon, "rotation",
+									$Weapon.rotation,
+									$Weapon.rotation-deg2rad(180),
+									0.1, Tween.TRANS_CUBIC, Tween.EASE_OUT)
+	else:
+		$Tween.interpolate_property($Weapon, "rotation",
+									$Weapon.rotation,
+									$Weapon.rotation+deg2rad(180),
+									0.1, Tween.TRANS_CUBIC, Tween.EASE_OUT)
+	
+	$Tween.start()
+	print("Attack!")
+
+func stab_attack():
+	
+	$StateSwitchTimer.disconnect("timeout", self, "stab_attack")
+	
+	var forward_dir = Vector2(cos($AttackPivot.rotation), sin($AttackPivot.rotation))
+	
+	hitbox_on = true
+	
+	$Tween.interpolate_property($Weapon, "position",
+								$Weapon.position,
+								$AttackPivot.position + forward_dir*10.0,
 								0.1, Tween.TRANS_CUBIC, Tween.EASE_OUT)
 	
 	$Tween.start()
+	print("Attack!")
 
 func end_attack():
 	hitbox_on = false
@@ -97,6 +139,12 @@ func cooldown_state(delta):
 	update_facing(delta)
 
 func dazed_state(delta):
+	
+	if current_facing == true:
+		$Weapon.rotation = lerp($Weapon.rotation, deg2rad(15), delta * 5)
+	else:
+		$Weapon.rotation = lerp($Weapon.rotation, deg2rad(-15), delta * 5)
+	
 	
 	daze = max(daze - recovery_speed * delta, 0)
 	
@@ -120,6 +168,9 @@ func take_damage(damage_taken : int):
 	.take_damage(damage_taken)
 	add_daze(max_daze)
 
-func _on_AttackHitbox_body_entered(body):
+func _on_hitbox_entered(body):
 	if hitbox_on:
 		print("Hit ", body.name)
+		
+		var dir = Vector2(cos($AttackPivot.rotation), sin($AttackPivot.rotation))
+		body.on_hit(dir)

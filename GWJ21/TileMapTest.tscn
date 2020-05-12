@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://DungeonTilemap.tres" type="TileSet" id=1]
 [ext_resource path="res://src/Scenes/Player.tscn" type="PackedScene" id=2]
@@ -6,7 +6,8 @@
 [ext_resource path="res://src/Scenes/Room.tscn" type="PackedScene" id=4]
 [ext_resource path="res://src/Scenes/Tests/TestKinematicSelectable2.tscn" type="PackedScene" id=5]
 [ext_resource path="res://src/Scenes/Tests/TestRangedEnemy.tscn" type="PackedScene" id=6]
-[ext_resource path="res://src/Scenes/Tests/TestMeleeEnemy.tscn" type="PackedScene" id=7]
+[ext_resource path="res://src/Scenes/Tests/TestSlashMeleeEnemy.tscn" type="PackedScene" id=7]
+[ext_resource path="res://src/Scenes/Tests/TestStabMeleeEnemy.tscn" type="PackedScene" id=8]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 225.328, 141.21 )
@@ -44,11 +45,15 @@ is_static = true
 position = Vector2( 418.684, 145.429 )
 
 [node name="Melee" parent="EntitySort" instance=ExtResource( 7 )]
-position = Vector2( -439.078, -408.385 )
+position = Vector2( -439.078, -409.12 )
 health = 2
 mass = 2.0
 current_player = NodePath("../Player")
 attack_cooldown = 1.5
+
+[node name="Melee2" parent="EntitySort" instance=ExtResource( 8 )]
+position = Vector2( -175.914, -427.497 )
+current_player = NodePath("../Player")
 
 [node name="Ranged" parent="EntitySort" instance=ExtResource( 6 )]
 position = Vector2( 547.701, -467.848 )
@@ -80,7 +85,6 @@ position = Vector2( -342.047, 130.862 )
 [node name="Room3" parent="EntitySort" instance=ExtResource( 4 )]
 visible = false
 position = Vector2( -259.052, -329.52 )
-cam_zoom = 2.0
 
 [node name="CollisionShape2D" parent="EntitySort/Room3" index="0"]
 shape = SubResource( 2 )
