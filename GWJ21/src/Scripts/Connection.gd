@@ -77,7 +77,7 @@ func pull_together(delta):
 	
 	# In case one of the objects is fixed, avoid complications
 	if body1.is_static or body2.is_static:
-		mass_ratio = 1
+		mass_ratio = 1.5
 	
 	if body1.is_static == false:
 		body1._pull_towards(towards_body2, PULL_ACCEL * mass_ratio, delta)

@@ -9,7 +9,7 @@ const TURN_DAMP = 0.65
 const STOP_DAMP = 0.8
 const DAZED_DAMP = 0.2
 const KNOCKBACK_FORCE = 200.0
-const BOOK_DIST = 50.0
+const BOOK_DIST = 30.0
 
 var invulnerable : bool = false # WIP
 var dazed : bool = false # WIP

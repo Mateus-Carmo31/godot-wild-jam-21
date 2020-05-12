@@ -52,7 +52,7 @@ current_player = NodePath("../Player")
 attack_cooldown = 1.5
 
 [node name="Melee2" parent="EntitySort" instance=ExtResource( 8 )]
-position = Vector2( -175.914, -427.497 )
+position = Vector2( -175.914, -428.312 )
 current_player = NodePath("../Player")
 
 [node name="Ranged" parent="EntitySort" instance=ExtResource( 6 )]

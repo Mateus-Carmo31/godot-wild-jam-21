@@ -6,7 +6,7 @@ export var max_speed : float = 100.0
 export var current_player : NodePath
 
 var daze : float
-export(float, 1, 3, 0.5) var max_daze : float = 1
+export(float, 1, 3, 0.5) var max_daze : float = 0.6
 export(float, 0.1, 1, 0.1) var recovery_speed : float = 0.4
 
 func _ready():
