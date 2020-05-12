@@ -7,7 +7,6 @@ var offset_dir := Vector2.ZERO
 var offset := 0.0
 
 func _physics_process(delta):
-	
 	if target:
 		global_position = lerp(global_position, 
 							   get_node(target).global_position + offset_dir * offset,

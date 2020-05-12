@@ -85,6 +85,10 @@ func pull_together(delta):
 	if body2.is_static == false:
 		body2._pull_towards(towards_body1, PULL_ACCEL * (1/mass_ratio), delta)
 
+func get_connection_position():
+	var points_mid = (points[0] + points[1])/2.0
+	return to_global(points_mid)
+
 func on_hitbox_entered(detected_area, detecting_body):
 	
 	if is_pulling:

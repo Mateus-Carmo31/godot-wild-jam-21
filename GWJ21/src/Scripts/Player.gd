@@ -14,7 +14,6 @@ const BOOK_DIST = 50.0
 var invulnerable : bool = false # WIP
 var dazed : bool = false # WIP
 var is_dashing : bool = false # WIP
-var is_casting : bool = false
 
 var pushed_body = null
 var pushed_dir = null
@@ -57,13 +56,14 @@ func _physics_process(delta):
 
 func movement(delta):
 	
+	# Get input 
 	var input = get_player_input()
+	
+	# ------- PLAYER MOVEMENT AND PHYSICS ----------
 	
 	if input != Vector2.ZERO and not is_dashing:
 		velocity += input * ACCEL
 		velocity = velocity.clamped(MAX_SPEED)
-		
-		update_facing()
 		
 		# Applies damping if the player turns too suddenly
 		if input.dot(velocity.normalized()) < -0.5:
@@ -74,6 +74,10 @@ func movement(delta):
 		if not is_dashing:
 			velocity *= pow(1.0-STOP_DAMP, delta * 10)
 			animation_state.travel("Idle")
+	
+	update_facing()
+	
+	# ------- PUSHING MECHANICS ----------
 	
 	if pushed_body != null and pushed_dir == velocity.normalized():
 		pushed_body.velocity += velocity.normalized() * delta * push_force
@@ -91,6 +95,8 @@ func movement(delta):
 		else:
 			velocity = velocity.slide(col.normal)
 	
+	# ------- CONNECTION SPELL CASTING ----------
+	
 	if Input.is_action_just_pressed("shoot"):
 		var shoot_dir = (get_global_mouse_position() - $LaunchPoint.global_position).normalized()
 		call_deferred("launch_projectile", shoot_dir)
@@ -102,21 +108,21 @@ func movement(delta):
 		elif current_connection != null:
 			current_connection.destroy_connection(false)
 	
-	if is_casting:
-		update_facing()
-	
 	if Input.is_action_just_pressed("special"):
 		if current_connection:
 			current_connection.start_pull()
-			is_casting = true
-	elif Input.is_action_just_released("special") or is_casting == false:
+	elif Input.is_action_just_released("special"):
 		if current_connection:
 			current_connection.is_pulling = false
-			is_casting = false
+	
+	# ------- DASH MECHANIC ----------
 	
 	if input != Vector2.ZERO and Input.is_action_just_pressed("dash"):
 		is_dashing = true
-		is_casting = false
+		
+		if current_connection:
+			pass
+		
 		velocity = input * MAX_SPEED * 2.0
 		$Sprite.flip_h = velocity.x < 0
 		$DashTrail.emitting = true
@@ -154,7 +160,7 @@ func get_player_input() -> Vector2:
 	return input_vec.normalized()
 
 func update_facing():
-	if not is_casting:
+	if current_connection == null:
 		if velocity.x < 0:
 			$Sprite.flip_h = true
 			current_book.target = $BookPointR.get_path()
@@ -164,7 +170,7 @@ func update_facing():
 		
 		current_book.set_offset(Vector2.ZERO, 0)
 	else:
-		var cast_dir = $LaunchPoint.global_position.direction_to(get_global_mouse_position())
+		var cast_dir = $LaunchPoint.global_position.direction_to(current_connection.get_connection_position())
 		$Sprite.flip_h = cast_dir.x < 0
 		current_book.target = $LaunchPoint.get_path()
 		current_book.set_offset(cast_dir, BOOK_DIST)
