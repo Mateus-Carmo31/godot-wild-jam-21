@@ -45,6 +45,15 @@ func _ready():
 	get_parent().call_deferred("add_child", current_book)
 	current_book.target = $BookPointL.get_path()
 	current_book.global_position = $BookPointL.global_position
+	
+	print(global_position)
+
+func _input(event):
+	if event is InputEventMouseButton:
+		if event.is_action_pressed("shoot"):
+			print("Shooting! %s" % [event.position])
+			var shoot_dir = event.position - $LaunchPoint.get_global_transform_with_canvas().origin
+			call_deferred("launch_projectile", shoot_dir.normalized())
 
 var velocity : Vector2
 func _physics_process(delta):
@@ -100,21 +109,17 @@ func movement(delta):
 	
 	# ------- CONNECTION SPELL CASTING ----------
 	
-	if Input.is_action_just_pressed("shoot"):
-		var shoot_dir = (get_global_mouse_position() - $LaunchPoint.global_position).normalized()
-		call_deferred("launch_projectile", shoot_dir)
-	
-	if Input.is_action_just_pressed("ui_cancel"):
+	if Input.is_action_just_pressed("deselect_active"):
 		if selected_obj != null:
 			selected_obj.deselect()
 			selected_obj = null
 		elif current_connection != null:
 			current_connection.destroy_connection(0.0)
 	
-	if Input.is_action_just_pressed("special"):
+	if Input.is_action_just_pressed("pull_together"):
 		if current_connection:
 			current_connection.start_pull()
-	elif Input.is_action_just_released("special"):
+	elif Input.is_action_just_released("pull_together"):
 		if current_connection:
 			current_connection.is_pulling = false
 	
@@ -140,7 +145,7 @@ func dazed_state(delta):
 	
 	var input = get_player_input()
 	
-	if input != Vector2.ZERO and invul_timer.time_left < invul_timer.wait_time / 5.0:
+	if input != Vector2.ZERO and invul_timer.time_left < invul_timer.wait_time / 4.0:
 		dazed = false
 		animation_state.travel("Idle")
 	elif invulnerable == false:

@@ -32,7 +32,7 @@ tracks/0/keys = {
 "values": [ Vector2( 4, 4 ), Vector2( 3.9, 4.2 ), Vector2( 4, 4 ) ]
 }
 
-[sub_resource type="Animation" id=12]
+[sub_resource type="Animation" id=5]
 resource_name = "Invulnerable"
 length = 0.5
 loop = true
@@ -49,8 +49,7 @@ tracks/0/keys = {
 "values": [ true, false ]
 }
 
-[sub_resource type="Animation" id=5]
-resource_name = "Move"
+[sub_resource type="Animation" id=6]
 length = 0.25
 loop = true
 tracks/0/type = "value"
@@ -66,37 +65,37 @@ tracks/0/keys = {
 "values": [ Vector2( 4, 4 ), Vector2( 3.9, 4.2 ), Vector2( 4, 4 ) ]
 }
 
-[sub_resource type="AnimationNodeAnimation" id=6]
+[sub_resource type="AnimationNodeAnimation" id=7]
 animation = "Idle"
 
-[sub_resource type="AnimationNodeAnimation" id=13]
+[sub_resource type="AnimationNodeAnimation" id=8]
 animation = "Invulnerable"
 
-[sub_resource type="AnimationNodeAnimation" id=7]
+[sub_resource type="AnimationNodeAnimation" id=9]
 animation = "Move"
 
-[sub_resource type="AnimationNodeStateMachineTransition" id=8]
+[sub_resource type="AnimationNodeStateMachineTransition" id=10]
 
-[sub_resource type="AnimationNodeStateMachineTransition" id=9]
+[sub_resource type="AnimationNodeStateMachineTransition" id=11]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=12]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=13]
 
 [sub_resource type="AnimationNodeStateMachineTransition" id=14]
 
-[sub_resource type="AnimationNodeStateMachineTransition" id=15]
-
-[sub_resource type="AnimationNodeStateMachineTransition" id=16]
-
-[sub_resource type="AnimationNodeStateMachine" id=10]
-states/Idle/node = SubResource( 6 )
+[sub_resource type="AnimationNodeStateMachine" id=15]
+states/Idle/node = SubResource( 7 )
 states/Idle/position = Vector2( 408, 92 )
-states/Invulnerable/node = SubResource( 13 )
+states/Invulnerable/node = SubResource( 8 )
 states/Invulnerable/position = Vector2( 505, -11 )
-states/Move/node = SubResource( 7 )
+states/Move/node = SubResource( 9 )
 states/Move/position = Vector2( 594, 92 )
-transitions = [ "Idle", "Move", SubResource( 8 ), "Move", "Idle", SubResource( 9 ), "Idle", "Invulnerable", SubResource( 14 ), "Move", "Invulnerable", SubResource( 15 ), "Invulnerable", "Idle", SubResource( 16 ) ]
+transitions = [ "Idle", "Move", SubResource( 10 ), "Move", "Idle", SubResource( 11 ), "Idle", "Invulnerable", SubResource( 12 ), "Move", "Invulnerable", SubResource( 13 ), "Invulnerable", "Idle", SubResource( 14 ) ]
 start_node = "Idle"
 graph_offset = Vector2( -39, -55 )
 
-[sub_resource type="AnimationNodeStateMachinePlayback" id=11]
+[sub_resource type="AnimationNodeStateMachinePlayback" id=16]
 
 [node name="Player" type="KinematicBody2D"]
 collision_mask = 60
@@ -164,11 +163,11 @@ one_shot = true
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/Idle = SubResource( 4 )
-anims/Invulnerable = SubResource( 12 )
-anims/Move = SubResource( 5 )
+anims/Invulnerable = SubResource( 5 )
+anims/Move = SubResource( 6 )
 
 [node name="AnimationTree" type="AnimationTree" parent="."]
-tree_root = SubResource( 10 )
+tree_root = SubResource( 15 )
 anim_player = NodePath("../AnimationPlayer")
-parameters/playback = SubResource( 11 )
+parameters/playback = SubResource( 16 )
 [connection signal="timeout" from="InvincibilityTimer" to="." method="_on_InvincibilityTimer_timeout"]
