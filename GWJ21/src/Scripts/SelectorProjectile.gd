@@ -11,6 +11,7 @@ onready var interact_mask = LayerManager.LAYERS.CONNECTION_HITBOX
 func _ready():
 	collision_layer = LayerManager.LAYERS.PLAYER_PROJECTILE
 	collision_mask = LayerManager.get_all_layers([
+		LayerManager.LAYERS.ENEMY_PROJECTILES,
 		LayerManager.LAYERS.PLAYER, 
 		LayerManager.LAYERS.MISC
 	])

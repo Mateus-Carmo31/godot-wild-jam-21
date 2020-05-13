@@ -49,6 +49,7 @@ config/icon="res://icon.png"
 
 LayerManager="*res://src/Scripts/AutoLoads/LayerManager.gd"
 Events="*res://src/Scripts/AutoLoads/Events.gd"
+Resources="*res://src/Scripts/AutoLoads/Resources.gd"
 
 [display]
 

@@ -1,0 +1,31 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://src/Scenes/Projectiles/FireProjectile.gd" type="Script" id=1]
+[ext_resource path="res://assets/Sprites/fire_projectile.png" type="Texture" id=2]
+
+[sub_resource type="CircleShape2D" id=1]
+radius = 7.82818
+
+[node name="Projectile" type="Area2D"]
+position = Vector2( 0, 1.21748 )
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="Sprite" type="Sprite" parent="."]
+position = Vector2( 0, -4 )
+scale = Vector2( 4, 4 )
+texture = ExtResource( 2 )
+region_enabled = true
+region_rect = Rect2( 0, 0, 6, 8 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource( 1 )
+
+[node name="DestroySelf" type="Timer" parent="."]
+process_mode = 0
+one_shot = true
+[connection signal="area_entered" from="." to="." method="_on_Projectile_area_entered"]
+[connection signal="body_entered" from="." to="." method="_on_Projectile_body_entered"]
+[connection signal="timeout" from="DestroySelf" to="." method="_on_DestroySelf_timeout"]

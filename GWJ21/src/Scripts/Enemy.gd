@@ -13,6 +13,7 @@ func _ready():
 	
 	collision_layer = LayerManager.LAYERS.ENEMIES
 	collision_mask = LayerManager.get_all_layers([
+		LayerManager.LAYERS.ENEMY_PROJECTILES,
 		LayerManager.LAYERS.CONNECTION_HITBOX,
 		LayerManager.LAYERS.MISC
 	])
@@ -21,7 +22,22 @@ func _ready():
 	$SelectHitbox.collision_mask = LayerManager.LAYERS.CONNECTION_HITBOX
 	
 	is_pushable = false
+	
+#	set_physics_process(false)
 
 func add_daze(amount : float):
 	self.daze = min(self.daze + amount, self.max_daze)
 	print(name, " was dazed! (", self.daze, ")")
+
+func select():
+	.select()
+	add_daze(max_daze)
+
+func take_damage(damage_taken : int):
+	.take_damage(damage_taken)
+	add_daze(max_daze)
+
+func start_enemy(player : NodePath):
+	show()
+	current_player = player
+	set_physics_process(true)

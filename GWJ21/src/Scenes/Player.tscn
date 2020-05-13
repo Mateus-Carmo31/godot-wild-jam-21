@@ -5,11 +5,12 @@
 [ext_resource path="res://DashTrail.shader" type="Shader" id=3]
 
 [sub_resource type="CapsuleShape2D" id=1]
-radius = 12.0
+radius = 15.168
+height = 15.6118
 
 [sub_resource type="CapsuleShape2D" id=2]
-radius = 17.1059
-height = 25.8084
+radius = 15.1222
+height = 15.0661
 
 [sub_resource type="ShaderMaterial" id=3]
 shader = ExtResource( 3 )
@@ -107,9 +108,7 @@ texture = ExtResource( 1 )
 offset = Vector2( 0, -8.5 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-visible = false
-position = Vector2( 0, -12 )
-rotation = -1.5708
+position = Vector2( 0, -22.4633 )
 shape = SubResource( 1 )
 
 [node name="LaunchPoint" type="Position2D" parent="."]
@@ -119,13 +118,13 @@ __meta__ = {
 }
 
 [node name="BookPointL" type="Position2D" parent="."]
-position = Vector2( -34.8776, -39.6329 )
+position = Vector2( -34.8776, -35.6469 )
 __meta__ = {
 "_gizmo_extents_": 0.0
 }
 
 [node name="BookPointR" type="Position2D" parent="."]
-position = Vector2( 34.878, -39.633 )
+position = Vector2( 34.878, -35.647 )
 __meta__ = {
 "_gizmo_extents_": 0.0
 }
@@ -137,13 +136,13 @@ __meta__ = {
 }
 
 [node name="Hitbox" type="Area2D" parent="."]
-position = Vector2( 0, -30 )
+position = Vector2( 0, -15.2 )
 __meta__ = {
 "_edit_group_": true
 }
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
-visible = false
+rotation = 1.5708
 shape = SubResource( 2 )
 
 [node name="DashTrail" type="Particles2D" parent="."]
@@ -155,6 +154,8 @@ local_coords = false
 draw_order = 1
 process_material = SubResource( 3 )
 texture = ExtResource( 1 )
+
+[node name="ShootTimer" type="Timer" parent="."]
 
 [node name="InvincibilityTimer" type="Timer" parent="."]
 process_mode = 0
@@ -170,4 +171,5 @@ anims/Move = SubResource( 6 )
 tree_root = SubResource( 15 )
 anim_player = NodePath("../AnimationPlayer")
 parameters/playback = SubResource( 16 )
+[connection signal="timeout" from="ShootTimer" to="." method="set" binds= [ "can_fire", true ]]
 [connection signal="timeout" from="InvincibilityTimer" to="." method="_on_InvincibilityTimer_timeout"]

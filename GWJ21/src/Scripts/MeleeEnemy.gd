@@ -1,6 +1,6 @@
 extends Enemy
 
-enum {ATTACK, COOLDOWN, APPROACH, DAZED, SPECIAL}
+enum {ATTACK, COOLDOWN, APPROACH, SPECIAL}
 enum AttackMode {SLASH, STAB}
 
 export(AttackMode) var attack_mode
@@ -159,14 +159,6 @@ func update_facing(delta):
 	else:
 		$Sprite.flip_h = true
 		$Weapon.position = lerp($Weapon.position, weapon_holding_slot_R, delta * 5)
-
-func select():
-	.select()
-	add_daze(max_daze)
-
-func take_damage(damage_taken : int):
-	.take_damage(damage_taken)
-	add_daze(max_daze)
 
 func _on_hitbox_entered(body):
 	if hitbox_on:

@@ -9,11 +9,12 @@ const TURN_DAMP = 0.65
 const STOP_DAMP = 0.8
 const DAZED_DAMP = 0.2
 const KNOCKBACK_FORCE = 200.0
-const BOOK_DIST = 30.0
+const BOOK_DIST = 40.0
 
 var invulnerable : bool = false # WIP
 var dazed : bool = false # WIP
 var is_dashing : bool = false # WIP
+var can_fire = true
 
 var pushed_body = null
 var pushed_dir = null
@@ -50,9 +51,10 @@ func _ready():
 
 func _input(event):
 	if event is InputEventMouseButton:
-		if event.is_action_pressed("shoot"):
-			print("Shooting! %s" % [event.position])
+		if event.is_action_pressed("shoot", true) and not dazed and not is_dashing and can_fire:
 			var shoot_dir = event.position - $LaunchPoint.get_global_transform_with_canvas().origin
+			$ShootTimer.start(0.2)
+			can_fire = false
 			call_deferred("launch_projectile", shoot_dir.normalized())
 
 var velocity : Vector2
@@ -178,9 +180,9 @@ func update_facing():
 		
 		current_book.set_offset(Vector2.ZERO, 0)
 	else:
-		var cast_dir = $LaunchPoint.global_position.direction_to(current_connection.get_connection_position())
+		var cast_dir = global_position.direction_to(current_connection.get_connection_position())
 		$Sprite.flip_h = cast_dir.x < 0
-		current_book.target = $LaunchPoint.get_path()
+		current_book.target = get_path()
 		current_book.set_offset(cast_dir, BOOK_DIST)
 
 func launch_projectile(dir : Vector2):

@@ -3,7 +3,7 @@ class_name KinematicSelectable
 
 export(bool) var unbreakable = false
 export(bool) var is_static = false
-export(bool) var is_pushable = true
+export(bool) var is_pushable
 export(int, 1, 10) var health = 1
 export(int, 1, 5) var damage = 1
 export(float, 1, 10, 0.1) var mass = 1
@@ -27,6 +27,8 @@ func _ready():
 	
 	if is_static:
 		is_pushable = false
+	else:
+		is_pushable = true
 
 func get_collision_area() -> Area2D:
 	return $SelectHitbox as Area2D
