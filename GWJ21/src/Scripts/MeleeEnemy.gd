@@ -146,7 +146,7 @@ func dazed_state(delta):
 		$Weapon.rotation = lerp($Weapon.rotation, deg2rad(-15), delta * 5)
 	
 	if not is_selected:
-		daze = max(daze - recovery_speed * delta, 0)
+		daze = max(daze - delta, 0)
 	
 	if daze == 0:
 		print(name, "'s not dazed anymore!")

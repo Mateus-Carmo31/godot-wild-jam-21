@@ -6,7 +6,7 @@ export(float) var min_dist = 200.0
 export(float) var charge_time = 1.0
 export(float) var fire_rate = 1.0
 
-var ProjectileScene = preload("res://src/Scenes/Projectiles/Fire.tscn")
+var ProjectileScene = preload("res://src/Scenes/Projectiles/FireProjectile.tscn")
 var state = CHARGING
 var can_fire = true
 
@@ -49,7 +49,7 @@ func adjust_dist(delta):
 func dazed_state(delta):
 	
 	if not is_selected:
-		daze = max(daze - recovery_speed * delta, 0)
+		daze = max(daze - delta, 0)
 	
 	if daze == 0:
 		print(name, "'s not dazed anymore!")

@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://DungeonTilemap.tres" type="TileSet" id=1]
 [ext_resource path="res://src/Scenes/Player.tscn" type="PackedScene" id=2]
@@ -6,8 +6,6 @@
 [ext_resource path="res://src/Scenes/Room.tscn" type="PackedScene" id=4]
 [ext_resource path="res://src/Scenes/Tests/TestKinematicSelectable2.tscn" type="PackedScene" id=5]
 [ext_resource path="res://src/Scenes/Tests/TestRangedEnemy.tscn" type="PackedScene" id=6]
-[ext_resource path="res://src/Scenes/Tests/TestSlashMeleeEnemy.tscn" type="PackedScene" id=7]
-[ext_resource path="res://src/Scenes/Tests/TestStabMeleeEnemy.tscn" type="PackedScene" id=8]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 225.328, 141.21 )
@@ -16,6 +14,7 @@ extents = Vector2( 225.328, 141.21 )
 extents = Vector2( 256.03, 259 )
 
 [node name="Main" type="Node2D"]
+pause_mode = 1
 
 [node name="EntitySort" type="YSort" parent="."]
 
@@ -23,6 +22,7 @@ extents = Vector2( 256.03, 259 )
 position = Vector2( -253.627, -112.765 )
 
 [node name="Camera2D" parent="EntitySort" instance=ExtResource( 3 )]
+pause_mode = 2
 editor_draw_screen = false
 follow_factor = 0.1
 player = NodePath("../Player")
@@ -82,15 +82,7 @@ position = Vector2( 0, -24.9914 )
 position = Vector2( 4.11765, 331.231 )
 
 [node name="Enemy" parent="EntitySort" instance=ExtResource( 6 )]
-position = Vector2( -264.101, -332.501 )
-current_player = NodePath("../Player")
-
-[node name="Enemy2" parent="EntitySort" instance=ExtResource( 7 )]
-position = Vector2( -396.198, -285.191 )
-current_player = NodePath("../Player")
-
-[node name="Enemy3" parent="EntitySort" instance=ExtResource( 8 )]
-position = Vector2( -73.1026, -212.99 )
+position = Vector2( -267.969, -341.786 )
 current_player = NodePath("../Player")
 
 [node name="TileMap" type="TileMap" parent="."]

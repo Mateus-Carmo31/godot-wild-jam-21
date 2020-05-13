@@ -15,6 +15,8 @@ var invulnerable : bool = false # WIP
 var dazed : bool = false # WIP
 var is_dashing : bool = false # WIP
 var can_fire = true
+var health : int = 1
+var lives : int = 3
 
 var pushed_body = null
 var pushed_dir = null
@@ -216,13 +218,28 @@ func on_connection_broken():
 
 func on_hit(knockback_dir : Vector2):
 	if not dazed and not invulnerable:
-		velocity += knockback_dir * KNOCKBACK_FORCE
-		dazed = true
-		invulnerable = true
-		animation_state.travel("Invulnerable")
-		Events.emit_signal("screen_shake", 0.2)
 		
-		invul_timer.start()
+		health = max(health-1, 0)
+		
+		if health > 0:
+			velocity += knockback_dir * KNOCKBACK_FORCE
+			dazed = true
+			invulnerable = true
+			animation_state.travel("Invulnerable")
+			
+			Events.emit_signal("screen_shake", 0.2)
+			Events.emit_signal("player_health_changed", health)
+		
+			invul_timer.start()
+		
+		else:
+			
+			lives = max(lives-1,0)
+			Events.emit_signal("screen_shake", 0.4)
+			Events.emit_signal("player_health_changed", health)
+			Events.emit_signal("player_lives_changed", lives)
+			print("Player dead, yo!")
+			# WIP
 
 func _on_InvincibilityTimer_timeout():
 	invulnerable = false

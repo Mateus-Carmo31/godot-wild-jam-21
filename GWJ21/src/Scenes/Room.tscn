@@ -2,7 +2,6 @@
 
 [ext_resource path="res://src/Scripts/Room.gd" type="Script" id=1]
 
-
 [node name="Room" type="Area2D"]
 collision_layer = 128
 script = ExtResource( 1 )

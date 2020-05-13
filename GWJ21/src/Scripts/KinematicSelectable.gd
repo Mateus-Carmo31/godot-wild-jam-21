@@ -41,7 +41,8 @@ func _pull_towards(dir : Vector2, pull_accel : float, delta : float):
 func _on_collision(collided_with : KinematicSelectable):
 	
 	take_damage(collided_with.damage)
-	set_deferred("velocity", collided_with.velocity/mass)
+	if not is_static:
+		set_deferred("velocity", collided_with.velocity/mass)
 
 func take_damage(damage_taken : int):
 	if not unbreakable:
@@ -55,6 +56,9 @@ func _physics_process(delta):
 		velocity *= pow((10.0-mass)/10, delta * 10.0)
 	else:
 		velocity *= pow(0.9, delta * 10.0)
+	
+	if health == 0:
+		destroy_self()
 
 func select():
 	is_selected = true
@@ -66,10 +70,10 @@ func deselect():
 
 func _process(delta):
 	update()
-	
-	if health == 0:
-		queue_free()
 
 func _draw():
 	if is_selected:
 		draw_circle(global_position - position, 30, Color.yellow)
+
+func destroy_self():
+	queue_free()
