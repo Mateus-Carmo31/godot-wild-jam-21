@@ -15,4 +15,6 @@ signal player_died
 # ENEMY SIGNALS
 signal enemy_spawned(enemy)
 signal enemy_died(enemy)
+
+# ROOM SIGNALS
 signal room_cleared

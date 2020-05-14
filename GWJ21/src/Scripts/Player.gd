@@ -211,7 +211,7 @@ func on_projectile_hit(hit_obj):
 		current_connection.connect("connection_broken", self, "on_connection_broken")
 		selected_obj = null
 		hit_obj.select()
-		get_parent().add_child(current_connection)
+		get_parent().get_parent().add_child(current_connection)
 
 func on_connection_broken():
 	current_connection = null
@@ -235,7 +235,11 @@ func on_hit(knockback_dir : Vector2):
 		else:
 			
 			lives = max(lives-1,0)
-			Events.emit_signal("screen_shake", 0.4)
+			health = 3
+			
+			clear_selections_and_connections()
+			
+			Events.emit_signal("screen_shake", 0.5)
 			Events.emit_signal("player_health_changed", health)
 			Events.emit_signal("player_lives_changed", lives)
 			print("Player dead, yo!")
@@ -245,3 +249,12 @@ func _on_InvincibilityTimer_timeout():
 	invulnerable = false
 	if $Sprite.visible == false:
 		$Sprite.visible = true
+
+func clear_selections_and_connections():
+	
+	if selected_obj != null:
+		selected_obj.deselect()
+		selected_obj = null
+	elif current_connection != null:
+		current_connection.destroy_connection(0.0)
+		current_connection = null

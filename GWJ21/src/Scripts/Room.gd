@@ -11,18 +11,28 @@ onready var checkpoint = $Checkpoint.global_position
 
 func _ready():
 	
+	add_to_group("rooms")
+	
 	collision_layer = LayerManager.LAYERS.MISC
 	collision_mask = LayerManager.LAYERS.PLAYER
+	
+	if blockades.size() == 0:
+		is_completed = true
 
 func _on_Room_body_entered(_body):
+	
+	print(_body.name)
 	
 	Events.emit_signal("wants_cam_focus", $CamPoint.get_path(), cam_zoom)
 	
 	if is_completed == false:
-		Events.emit_signal("player_entered_room", get_path())
 		
 		Events.connect("enemy_spawned", self, "register_enemy")
 		Events.connect("enemy_died", self, "deregister_enemy")
+		
+		Events.emit_signal("player_entered_room", get_path())
+		
+		_body.clear_selections_and_connections()
 		
 		for child in get_children():
 			if child is Spawner:
@@ -32,7 +42,6 @@ func _on_Room_body_entered(_body):
 
 func _on_Room_body_exited(_body):
 	Events.emit_signal("released_cam_focus")
-	empty_room() # ONLY TEMPORARELY
 
 func register_enemy(enemy):
 	current_enemies.push_back(enemy)
@@ -53,12 +62,20 @@ func complete_room():
 	
 	unlock_doors()
 	
+	Events.emit_signal("room_cleared")
+	
 	print("Room completed!")
 
 func empty_room():
+	
+	Events.disconnect("enemy_spawned", self, "register_enemy")
+	Events.disconnect("enemy_died", self, "deregister_enemy")
+	
 	for child in get_children():
 		if child is Spawner:
 			child.delete_spawned_object()
+	
+	current_enemies.clear()
 	
 	unlock_doors()
 

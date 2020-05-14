@@ -21,6 +21,8 @@ func _ready():
 	$SelectHitbox.collision_mask = LayerManager.LAYERS.CONNECTION_HITBOX
 	
 	is_pushable = false
+	
+	z_index = 1
 
 func add_daze(amount : float):
 	self.daze = min(self.daze + amount, self.max_daze)

@@ -2,7 +2,6 @@ extends KinematicBody2D
 class_name KinematicSelectable
 
 export(bool) var unbreakable = false
-export(bool) var starts_hidden := true
 export(bool) var is_static = false
 export(bool) var is_pushable
 export(int, 1, 10) var health = 1
@@ -64,18 +63,14 @@ func _physics_process(delta):
 
 func select():
 	is_selected = true
+	$SelectEffect.activate()
 
 func deselect():
 	is_selected = false
 	if is_being_pulled:
 		is_being_pulled = false
-
-func _process(delta):
-	update()
-
-func _draw():
-	if is_selected:
-		draw_circle(global_position - position, 30, Color.yellow)
+	
+	$SelectEffect.deactivate()
 
 func destroy_self():
 	queue_free()

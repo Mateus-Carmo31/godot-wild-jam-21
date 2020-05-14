@@ -1,6 +1,7 @@
 extends Line2D
 class_name Connection
 
+const CHAIN_TEXTURE = preload("res://assets/Sprites/connection_chain.png")
 const PULL_ACCEL = 200.0
 
 var body1 : KinematicSelectable = null
@@ -12,12 +13,16 @@ signal connection_broken
 
 func _init(o1 : KinematicSelectable, o2 : KinematicSelectable):
 	
+	default_color = Color.white
+	texture = CHAIN_TEXTURE
+	texture_mode = Line2D.LINE_TEXTURE_TILE
+	
+	scale = Vector2(2,2)
+	
 	self.body1 = o1
 	self.body2 = o2
 	
 	o1.get_collision_area().connect("area_entered", self, "on_hitbox_entered", [o1])
-#	o1.connect("connection_released", self, "destroy_connection")
-#	o2.connect("connection_released", self, "destroy_connection")
 	
 	self.add_point(o1.position)
 	self.add_point(o2.position)
@@ -25,8 +30,8 @@ func _init(o1 : KinematicSelectable, o2 : KinematicSelectable):
 func _physics_process(delta):
 	
 	if body1 and body2:
-		set_point_position(0, body1.global_position)
-		set_point_position(1, body2.global_position)
+		set_point_position(0, to_local(body1.get_node("SelectEffect").global_position))
+		set_point_position(1, to_local(body2.get_node("SelectEffect").global_position))
 		
 		if is_pulling:
 			body1.is_being_pulled = true
@@ -40,8 +45,6 @@ func destroy_connection(screen_shake_strength = 0.3):
 	emit_signal("connection_broken")
 	
 	body1.get_collision_area().disconnect("area_entered", self, "on_hitbox_entered")
-#	body1.disconnect("connection_released", self, "destroy_connection")
-#	body2.disconnect("connection_released", self, "destroy_connection")
 	body1.deselect()
 	body2.deselect()
 	
@@ -76,7 +79,7 @@ func pull_together(delta):
 	
 	# In case one of the objects is fixed, avoid complications
 	if body1.is_static or body2.is_static:
-		mass_ratio = 1.5
+		mass_ratio = 2
 	
 	if body1.is_static == false:
 		body1._pull_towards(towards_body2, PULL_ACCEL * mass_ratio, delta)

@@ -1,0 +1,71 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://src/Scripts/SelectEffect.gd" type="Script" id=1]
+[ext_resource path="res://assets/Sprites/fire_projectile.png" type="Texture" id=2]
+[ext_resource path="res://assets/Sprites/projectile.png" type="Texture" id=3]
+
+[sub_resource type="Gradient" id=1]
+offsets = PoolRealArray( 0.034965, 1 )
+colors = PoolColorArray( 1, 1, 1, 0.784314, 1, 1, 1, 0 )
+
+[sub_resource type="GradientTexture" id=2]
+gradient = SubResource( 1 )
+
+[sub_resource type="ParticlesMaterial" id=3]
+flag_disable_z = true
+direction = Vector3( 0, 1, 0 )
+spread = 0.0
+gravity = Vector3( 0, 0, 0 )
+initial_velocity = 10.0
+orbit_velocity = 0.0
+orbit_velocity_random = 0.0
+scale = 4.0
+color_ramp = SubResource( 2 )
+
+[sub_resource type="ParticlesMaterial" id=4]
+flag_disable_z = true
+direction = Vector3( 0, -1, 0 )
+spread = 0.0
+gravity = Vector3( 0, 0, 0 )
+initial_velocity = 10.0
+orbit_velocity = 0.0
+orbit_velocity_random = 0.0
+scale = 4.0
+color_ramp = SubResource( 2 )
+
+[node name="SelectEffect" type="Node2D"]
+visible = false
+z_index = 1
+script = ExtResource( 1 )
+spin_rate = 60.0
+is_active = false
+
+[node name="Orb" type="Sprite" parent="."]
+position = Vector2( 39, 0 )
+scale = Vector2( 4, 4 )
+texture = ExtResource( 2 )
+region_enabled = true
+region_rect = Rect2( 7, 7, 6, 6 )
+
+[node name="Particles2D" type="Particles2D" parent="Orb"]
+z_index = -1
+amount = 4
+local_coords = false
+draw_order = 1
+process_material = SubResource( 3 )
+texture = ExtResource( 3 )
+
+[node name="Orb2" type="Sprite" parent="."]
+position = Vector2( -39, 0 )
+scale = Vector2( 4, 4 )
+texture = ExtResource( 2 )
+region_enabled = true
+region_rect = Rect2( 7, 7, 6, 6 )
+
+[node name="Particles2D" type="Particles2D" parent="Orb2"]
+z_index = -1
+amount = 4
+local_coords = false
+draw_order = 1
+process_material = SubResource( 4 )
+texture = ExtResource( 3 )
