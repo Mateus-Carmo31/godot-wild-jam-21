@@ -2,6 +2,7 @@ extends KinematicBody2D
 class_name KinematicSelectable
 
 export(bool) var unbreakable = false
+export(bool) var starts_hidden := true
 export(bool) var is_static = false
 export(bool) var is_pushable
 export(int, 1, 10) var health = 1
@@ -13,7 +14,7 @@ var is_being_pulled = false
 
 var velocity := Vector2()
 
-signal connection_released
+# signal connection_released
 
 func _ready():
 	collision_layer = LayerManager.LAYERS.OBJECTS
@@ -50,13 +51,14 @@ func take_damage(damage_taken : int):
 
 func _physics_process(delta):
 	
-	velocity = move_and_slide(velocity)
-	
+	if not is_static:
+		velocity = move_and_slide(velocity)
+
 	if not is_being_pulled:
 		velocity *= pow((10.0-mass)/10, delta * 10.0)
 	else:
 		velocity *= pow(0.9, delta * 10.0)
-	
+
 	if health == 0:
 		destroy_self()
 

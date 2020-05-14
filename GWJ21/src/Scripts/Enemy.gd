@@ -9,7 +9,6 @@ var daze : float
 export(float, 0.2, 2, 0.1) var max_daze : float = 0.6
 
 func _ready():
-	add_to_group("enemies")
 	
 	collision_layer = LayerManager.LAYERS.ENEMIES
 	collision_mask = LayerManager.get_all_layers([
@@ -22,8 +21,6 @@ func _ready():
 	$SelectHitbox.collision_mask = LayerManager.LAYERS.CONNECTION_HITBOX
 	
 	is_pushable = false
-	
-#	set_physics_process(false)
 
 func add_daze(amount : float):
 	self.daze = min(self.daze + amount, self.max_daze)
@@ -38,6 +35,9 @@ func take_damage(damage_taken : int):
 	add_daze(max_daze)
 
 func start_enemy(player : NodePath):
-	show()
+	Events.emit_signal("enemy_spawned", self)
 	current_player = player
-	set_physics_process(true)
+
+func destroy_self():
+	Events.emit_signal("enemy_died", self)
+	queue_free()

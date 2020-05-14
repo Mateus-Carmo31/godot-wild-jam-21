@@ -15,7 +15,7 @@ var invulnerable : bool = false # WIP
 var dazed : bool = false # WIP
 var is_dashing : bool = false # WIP
 var can_fire = true
-var health : int = 1
+var health : int = 3
 var lives : int = 3
 
 var pushed_body = null

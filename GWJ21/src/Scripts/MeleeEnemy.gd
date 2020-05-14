@@ -54,13 +54,6 @@ func approach_state(delta):
 		update_facing(delta)
 		$Weapon.rotation = 0
 	
-	velocity = move_and_slide(velocity)
-	
-	if is_being_pulled:
-		velocity *= pow((10-mass)/10, delta * 10)
-	else:
-		velocity *= pow(0.9, delta * 10)
-	
 	if current_player:
 		var dist = global_position.distance_to(get_node(current_player).global_position)
 		if dist < min_attack_dist:

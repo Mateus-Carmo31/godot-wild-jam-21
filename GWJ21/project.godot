@@ -28,12 +28,18 @@ _global_script_classes=[ {
 "class": "Room",
 "language": "GDScript",
 "path": "res://src/Scripts/Room.gd"
+}, {
+"base": "Node2D",
+"class": "Spawner",
+"language": "GDScript",
+"path": "res://Spawner.gd"
 } ]
 _global_script_class_icons={
 "Connection": "",
 "Enemy": "",
 "KinematicSelectable": "",
-"Room": ""
+"Room": "",
+"Spawner": ""
 }
 
 [application]
@@ -49,7 +55,7 @@ config/icon="res://icon.png"
 
 LayerManager="*res://src/Scripts/AutoLoads/LayerManager.gd"
 Events="*res://src/Scripts/AutoLoads/Events.gd"
-Resources="*res://src/Scripts/AutoLoads/Resources.gd"
+RESOURCES="*res://src/Scripts/AutoLoads/Resources.gd"
 
 [display]
 

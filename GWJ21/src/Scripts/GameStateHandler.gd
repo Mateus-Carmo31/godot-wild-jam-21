@@ -15,8 +15,8 @@ func set_new_room(room_path):
 
 func player_death(_lives):
 	
-	get_tree().paused = true
-	Events.emit_signal("released_cam_focus")
+#	get_tree().paused = true
+#	Events.emit_signal("released_cam_focus")
 	
 	if _lives > 0:
 		pass

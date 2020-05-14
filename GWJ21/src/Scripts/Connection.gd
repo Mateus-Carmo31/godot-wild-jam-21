@@ -16,8 +16,8 @@ func _init(o1 : KinematicSelectable, o2 : KinematicSelectable):
 	self.body2 = o2
 	
 	o1.get_collision_area().connect("area_entered", self, "on_hitbox_entered", [o1])
-	o1.connect("connection_released", self, "destroy_connection")
-	o2.connect("connection_released", self, "destroy_connection")
+#	o1.connect("connection_released", self, "destroy_connection")
+#	o2.connect("connection_released", self, "destroy_connection")
 	
 	self.add_point(o1.position)
 	self.add_point(o2.position)
@@ -40,8 +40,8 @@ func destroy_connection(screen_shake_strength = 0.3):
 	emit_signal("connection_broken")
 	
 	body1.get_collision_area().disconnect("area_entered", self, "on_hitbox_entered")
-	body1.disconnect("connection_released", self, "destroy_connection")
-	body2.disconnect("connection_released", self, "destroy_connection")
+#	body1.disconnect("connection_released", self, "destroy_connection")
+#	body2.disconnect("connection_released", self, "destroy_connection")
 	body1.deselect()
 	body2.deselect()
 	

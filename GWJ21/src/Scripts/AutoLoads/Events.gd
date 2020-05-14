@@ -10,3 +10,9 @@ signal player_health_changed(new_health)
 signal player_lives_changed(new_lives)
 signal player_entered_room(room_path)
 signal player_exited_room(room_path)
+signal player_died
+
+# ENEMY SIGNALS
+signal enemy_spawned(enemy)
+signal enemy_died(enemy)
+signal room_cleared

@@ -40,11 +40,6 @@ func adjust_dist(delta):
 		can_fire = false
 	
 	$Sprite.flip_h = move_dir.x > 0
-	
-	if not is_static:
-		velocity = move_and_slide(velocity)
-		
-		velocity *= pow(0.6, delta * 5.0)
 
 func dazed_state(delta):
 	
