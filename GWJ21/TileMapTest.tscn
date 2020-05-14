@@ -6,7 +6,7 @@
 [ext_resource path="res://src/Scenes/Room.tscn" type="PackedScene" id=4]
 [ext_resource path="res://src/Scenes/Spawner.tscn" type="PackedScene" id=5]
 [ext_resource path="res://src/Scenes/BlockadeHorizontal.tscn" type="PackedScene" id=6]
-[ext_resource path="res://src/Scripts/Blockade.gd" type="Script" id=7]
+[ext_resource path="res://src/Scenes/BlockadeVertical.tscn" type="PackedScene" id=7]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 225.328, 141.21 )
@@ -20,7 +20,7 @@ pause_mode = 1
 [node name="EntitySort" type="YSort" parent="."]
 
 [node name="Player" parent="EntitySort" instance=ExtResource( 2 )]
-position = Vector2( -254.934, -110.774 )
+position = Vector2( -247.178, 87.5641 )
 
 [node name="Camera2D" parent="EntitySort" instance=ExtResource( 3 )]
 pause_mode = 2
@@ -29,14 +29,14 @@ follow_factor = 0.1
 player = NodePath("../Player")
 
 [node name="Room" parent="EntitySort" instance=ExtResource( 4 )]
-visible = false
 position = Vector2( -738.221, 302.792 )
+blockades = [ NodePath("../Blockade2") ]
 
 [node name="CollisionShape2D" parent="EntitySort/Room" index="0"]
 shape = SubResource( 1 )
 
 [node name="Checkpoint" parent="EntitySort/Room" index="2"]
-position = Vector2( 284.263, 107.515 )
+position = Vector2( 302.268, 107.515 )
 
 [node name="Room2" parent="EntitySort" instance=ExtResource( 4 )]
 visible = false
@@ -53,6 +53,7 @@ position = Vector2( -342.047, 130.862 )
 
 [node name="Room3" parent="EntitySort" instance=ExtResource( 4 )]
 position = Vector2( -259.052, -329.52 )
+blockades = [ NodePath("../Blockade") ]
 
 [node name="CollisionShape2D" parent="EntitySort/Room3" index="0"]
 shape = SubResource( 2 )
@@ -72,13 +73,20 @@ position = Vector2( -137.202, 85.0855 )
 object_spawner = true
 object_name = "test"
 
+[node name="Spawner5" parent="EntitySort/Room3" instance=ExtResource( 5 )]
+position = Vector2( 95.1476, -68.385 )
+object_spawner = true
+object_name = "test"
+
 [node name="Spawner3" parent="EntitySort/Room3" instance=ExtResource( 5 )]
 position = Vector2( -82.9078, -36.7984 )
 object_name = "ranged"
 
 [node name="Blockade" parent="EntitySort" instance=ExtResource( 6 )]
 position = Vector2( -255.956, -52.0776 )
-script = ExtResource( 7 )
+
+[node name="Blockade2" parent="EntitySort" instance=ExtResource( 7 )]
+position = Vector2( -502.423, 391.821 )
 
 [node name="TileMap" type="TileMap" parent="."]
 scale = Vector2( 4, 4 )
