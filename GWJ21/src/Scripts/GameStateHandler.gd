@@ -34,14 +34,23 @@ func player_death(_lives):
 	
 	yield(get_tree().create_timer(0.6), "timeout")
 	
-	
+	ui_manager.death_animations()
+	yield(ui_manager.anim_player, "animation_finished")
 	
 	last_room.empty_room()
-	
 	player.global_position = last_room.checkpoint
-	get_tree().paused = false
-	can_pause = true
 	
+	yield(Events, "death_animation_ended")
+	
+	get_tree().paused = false
+	
+	if _lives > 0:
+		ui_manager.unwipe()
+		yield(ui_manager.anim_player, "animation_finished")
+	else:
+		pass
+	
+	can_pause = true
 
 func check_for_level_completed():
 	
@@ -59,6 +68,9 @@ func pause_unpause():
 		if get_tree().paused == false:
 			ui_manager.pause_screen()
 			get_tree().paused = true
+			print("Paused Game!")
 		else:
 			ui_manager.unpause_screen()
 			get_tree().paused = false
+			print("Unpaused Game!")
+			

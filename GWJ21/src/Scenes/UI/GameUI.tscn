@@ -1,8 +1,9 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://assets/BEBAS.ttf" type="DynamicFontData" id=1]
 [ext_resource path="res://src/Scenes/UI/GameUI.gd" type="Script" id=2]
 [ext_resource path="res://ScreenBlur.shader" type="Shader" id=3]
+[ext_resource path="res://assets/Sprites/lives_icon.png" type="Texture" id=4]
 
 [sub_resource type="DynamicFont" id=1]
 size = 40
@@ -13,8 +14,11 @@ font_data = ExtResource( 1 )
 shader = ExtResource( 3 )
 shader_param/amount = 0.0
 
-[sub_resource type="Animation" id=3]
-resource_name = "Pause"
+[sub_resource type="DynamicFont" id=3]
+size = 40
+font_data = ExtResource( 1 )
+
+[sub_resource type="Animation" id=4]
 length = 0.2
 tracks/0/type = "value"
 tracks/0/path = NodePath(".:blur_amount")
@@ -30,6 +34,45 @@ tracks/0/keys = {
 }
 
 [sub_resource type="Animation" id=5]
+resource_name = "ScreenUnwipe"
+tracks/0/type = "value"
+tracks/0/path = NodePath("ScreenHider:rect_position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 0.5, 1 ),
+"update": 0,
+"values": [ Vector2( 0, 0 ), Vector2( 0, -600 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:blur_amount")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0.2, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ 2.5, 0.0 ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("ScreenHider:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ true, false ]
+}
+
+[sub_resource type="Animation" id=6]
 resource_name = "ScreenWipe"
 tracks/0/type = "value"
 tracks/0/path = NodePath("ScreenHider:rect_position")
@@ -43,35 +86,32 @@ tracks/0/keys = {
 "update": 0,
 "values": [ Vector2( 0, 600 ), Vector2( 0, 0 ) ]
 }
-tracks/1/type = "method"
-tracks/1/path = NodePath("ScreenHider")
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:blur_amount")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/imported = false
 tracks/1/enabled = true
 tracks/1/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"values": [ {
-"args": [  ],
-"method": "show"
-} ]
+"times": PoolRealArray( 0, 0.8 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ 0.0, 2.5 ]
 }
 tracks/2/type = "value"
-tracks/2/path = NodePath(".:blur_amount")
+tracks/2/path = NodePath("ScreenHider:visible")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/imported = false
 tracks/2/enabled = true
 tracks/2/keys = {
-"times": PoolRealArray( 0, 0.5 ),
-"transitions": PoolRealArray( 1, 1 ),
-"update": 0,
-"values": [ 0.0, 2.5 ]
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
 }
 
-[sub_resource type="Animation" id=4]
-resource_name = "Unpause"
+[sub_resource type="Animation" id=7]
 length = 0.2
 tracks/0/type = "value"
 tracks/0/path = NodePath(".:blur_amount")
@@ -84,6 +124,59 @@ tracks/0/keys = {
 "transitions": PoolRealArray( 1, 1 ),
 "update": 0,
 "values": [ 2.5, 0.0 ]
+}
+
+[sub_resource type="Animation" id=8]
+length = 3.0
+tracks/0/type = "value"
+tracks/0/path = NodePath("DeathLivesDisplay:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5, 2, 2.5 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:lives_display_rumble")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 1.2, 1.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ 0.8, 0.0 ]
+}
+tracks/2/type = "method"
+tracks/2/path = NodePath(".")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 1.2 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [  ],
+"method": "update_death_lives_display"
+} ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("DeathLivesDisplay:visible")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0, 2.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ true, false ]
 }
 
 [node name="UI_Control" type="Control"]
@@ -110,16 +203,18 @@ __meta__ = {
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_top = 600.0
-margin_bottom = 600.0
+margin_bottom = 600.001
 color = Color( 0.133333, 0.12549, 0.203922, 1 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="BlurRect" type="ColorRect" parent="."]
+[node name="Blur" type="ColorRect" parent="."]
 material = SubResource( 2 )
 anchor_right = 1.0
 anchor_bottom = 1.0
+margin_left = -1.36041
+margin_right = -1.36041
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -135,15 +230,39 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-anims/Pause = SubResource( 3 )
-anims/ScreenWipe = SubResource( 5 )
-anims/Unpause = SubResource( 4 )
-
 [node name="DeathLivesDisplay" type="HBoxContainer" parent="."]
+modulate = Color( 1, 1, 1, 0 )
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = 370.832
-margin_top = 231.667
-margin_right = -429.168
-margin_bottom = -265.333
+margin_left = 438.777
+margin_top = 272.131
+margin_right = -464.223
+margin_bottom = -271.868
+custom_constants/separation = 20
+__meta__ = {
+"_edit_group_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="TextureRect" type="TextureRect" parent="DeathLivesDisplay"]
+margin_right = 80.0
+margin_bottom = 56.0
+rect_min_size = Vector2( 80, 56 )
+texture = ExtResource( 4 )
+expand = true
+stretch_mode = 6
+
+[node name="Label" type="Label" parent="DeathLivesDisplay"]
+margin_left = 100.0
+margin_top = 8.0
+margin_right = 121.0
+margin_bottom = 47.0
+custom_fonts/font = SubResource( 3 )
+text = "3"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/Pause = SubResource( 4 )
+anims/ScreenUnwipe = SubResource( 5 )
+anims/ScreenWipe = SubResource( 6 )
+anims/Unpause = SubResource( 7 )
+"anims/Update Lives" = SubResource( 8 )

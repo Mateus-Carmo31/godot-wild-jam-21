@@ -42,6 +42,9 @@ func _on_Room_body_entered(_body):
 
 func _on_Room_body_exited(_body):
 	Events.emit_signal("released_cam_focus")
+	
+	if not is_completed:
+		empty_room(0.5)
 
 func register_enemy(enemy):
 	current_enemies.push_back(enemy)
@@ -66,10 +69,12 @@ func complete_room():
 	
 	print("Room completed!")
 
-func empty_room():
+func empty_room(unlock_wait = -1):
 	
-	Events.disconnect("enemy_spawned", self, "register_enemy")
-	Events.disconnect("enemy_died", self, "deregister_enemy")
+	if Events.is_connected("enemy_spawned", self, "register_enemy"):
+		Events.disconnect("enemy_spawned", self, "register_enemy")
+	if Events.is_connected("enemy_died", self, "deregister_enemy"):
+		Events.disconnect("enemy_died", self, "deregister_enemy")
 	
 	for child in get_children():
 		if child is Spawner:
@@ -77,7 +82,7 @@ func empty_room():
 	
 	current_enemies.clear()
 	
-	unlock_doors()
+	unlock_doors(unlock_wait)
 
 func lock_doors(wait = -1):
 	if wait != -1:

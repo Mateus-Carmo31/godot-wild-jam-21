@@ -18,3 +18,6 @@ signal enemy_died(enemy)
 
 # ROOM SIGNALS
 signal room_cleared
+
+# UI SIGNALS
+signal death_animation_ended
