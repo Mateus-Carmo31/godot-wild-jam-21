@@ -1,16 +1,19 @@
 extends Node
 
 const enemies = {
-	"slash" : preload("res://src/Scenes/Tests/TestSlashMeleeEnemy.tscn"),
-	"stab" : preload("res://src/Scenes/Tests/TestStabMeleeEnemy.tscn"),
-	"ranged" : preload("res://src/Scenes/Tests/TestRangedEnemy.tscn"),
-	"level0_slow_slash" : preload("res://src/Scenes/Tests/BalanceTest/SlowSlasher.tscn"),
-	"level0_fast_stab" : preload("res://src/Scenes/Tests/BalanceTest/FastStaber.tscn"),
-	"level0_static" : preload("res://src/Scenes/Tests/BalanceTest/StaticShooter.tscn")
+	"slasher" : preload("res://src/Scenes/Enemies and Objects/SlasherSkull.tscn"),
+	"slasher2" : preload("res://src/Scenes/Enemies and Objects/SlasherSkull2.tscn"),
+	"big_slasher" : preload("res://src/Scenes/Enemies and Objects/BigSlasher.tscn"),
+	"big_slasher2" : preload("res://src/Scenes/Enemies and Objects/BigSlasher2.tscn"),
+	"stabby" : preload("res://src/Scenes/Enemies and Objects/StabbySkull.tscn"),
+	"big_stabby" : preload("res://src/Scenes/Enemies and Objects/BigStabber.tscn"),
+	"fire_skull" : preload("res://src/Scenes/Enemies and Objects/FireballSkull.tscn"),
 }
 
 const objects = {
-	"test" : preload("res://src/Scenes/Tests/TestKinematicSelectable2.tscn")
+	"barrel" : preload("res://src/Scenes/Enemies and Objects/Barrel.tscn"),
+	"box" : preload("res://src/Scenes/Enemies and Objects/Box.tscn"),
+	"shelf" : preload("res://src/Scenes/Enemies and Objects/Shelf.tscn")
 }
 
 const MAP_MENU = preload("res://src/Scenes/Map/MapMenu.tscn")
