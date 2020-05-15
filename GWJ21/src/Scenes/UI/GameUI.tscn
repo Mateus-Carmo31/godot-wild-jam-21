@@ -1,9 +1,10 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://assets/BEBAS.ttf" type="DynamicFontData" id=1]
-[ext_resource path="res://src/Scenes/UI/GameUI.gd" type="Script" id=2]
+[ext_resource path="res://src/Scripts/GameUI.gd" type="Script" id=2]
 [ext_resource path="res://ScreenBlur.shader" type="Shader" id=3]
 [ext_resource path="res://assets/Sprites/lives_icon.png" type="Texture" id=4]
+[ext_resource path="res://src/Scenes/UI/MenuButton.tscn" type="PackedScene" id=5]
 
 [sub_resource type="DynamicFont" id=1]
 size = 40
@@ -31,6 +32,54 @@ tracks/0/keys = {
 "transitions": PoolRealArray( 1, 1 ),
 "update": 0,
 "values": [ 0.0, 2.5 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("PauseMenu:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.2 ),
+"transitions": PoolRealArray( 2, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("PauseMenu:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("PauseLivesDisplay:modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0, 0.2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("PauseLivesDisplay:visible")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
 }
 
 [sub_resource type="Animation" id=5]
@@ -125,6 +174,54 @@ tracks/0/keys = {
 "update": 0,
 "values": [ 2.5, 0.0 ]
 }
+tracks/1/type = "value"
+tracks/1/path = NodePath("PauseMenu:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.2 ),
+"transitions": PoolRealArray( 0.5, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("PauseMenu:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 0.2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ true, false ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("PauseLivesDisplay:modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0, 0.2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("PauseLivesDisplay:visible")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0, 0.2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ true, false ]
+}
 
 [sub_resource type="Animation" id=8]
 length = 3.0
@@ -200,6 +297,7 @@ __meta__ = {
 }
 
 [node name="ScreenHider" type="ColorRect" parent="."]
+visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_top = 600.0
@@ -219,19 +317,8 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Label2" type="Label" parent="."]
-margin_left = 815.021
-margin_top = 17.0
-margin_right = 971.021
-margin_bottom = 56.0
-custom_fonts/font = SubResource( 1 )
-text = "Lives: 3"
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
 [node name="DeathLivesDisplay" type="HBoxContainer" parent="."]
-modulate = Color( 1, 1, 1, 0 )
+visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 438.777
@@ -260,9 +347,69 @@ margin_bottom = 47.0
 custom_fonts/font = SubResource( 3 )
 text = "3"
 
+[node name="PauseLivesDisplay" type="HBoxContainer" parent="."]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 841.632
+margin_top = 36.3867
+margin_right = -61.3678
+margin_bottom = -507.613
+rect_scale = Vector2( 0.8, 0.8 )
+custom_constants/separation = 20
+__meta__ = {
+"_edit_group_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="TextureRect" type="TextureRect" parent="PauseLivesDisplay"]
+margin_right = 80.0
+margin_bottom = 56.0
+rect_min_size = Vector2( 80, 56 )
+texture = ExtResource( 4 )
+expand = true
+stretch_mode = 6
+
+[node name="Label" type="Label" parent="PauseLivesDisplay"]
+margin_left = 100.0
+margin_top = 8.0
+margin_right = 121.0
+margin_bottom = 47.0
+custom_fonts/font = SubResource( 3 )
+text = "3"
+
+[node name="PauseMenu" type="VBoxContainer" parent="."]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 365.421
+margin_top = 363.342
+margin_right = -309.579
+margin_bottom = -82.6583
+rect_scale = Vector2( 0.8, 0.8 )
+__meta__ = {
+"_edit_group_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="RestartLevel" parent="PauseMenu" instance=ExtResource( 5 )]
+margin_right = 348.0
+focus_neighbour_top = NodePath("../QuitMenu")
+focus_neighbour_bottom = NodePath("../QuitMenu")
+text = "Restart Level"
+
+[node name="QuitMenu" parent="PauseMenu" instance=ExtResource( 5 )]
+margin_top = 79.0
+margin_right = 348.0
+margin_bottom = 154.0
+focus_neighbour_top = NodePath("../RestartLevel")
+focus_neighbour_bottom = NodePath("../RestartLevel")
+text = "Quit to menu"
+
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/Pause = SubResource( 4 )
 anims/ScreenUnwipe = SubResource( 5 )
 anims/ScreenWipe = SubResource( 6 )
 anims/Unpause = SubResource( 7 )
 "anims/Update Lives" = SubResource( 8 )
+[connection signal="pressed" from="PauseMenu/RestartLevel" to="." method="_on_RestartLevel_pressed"]

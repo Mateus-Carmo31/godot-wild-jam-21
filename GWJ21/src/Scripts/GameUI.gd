@@ -1,4 +1,3 @@
-tool
 extends Control
 
 export(float, 0, 5) var blur_amount = 0.0 setget set_blur
@@ -26,7 +25,7 @@ func update_health_display(new_health):
 	$Label.text = "Health: %s" % [new_health]
 
 func update_lives_display(new_lives):
-	$Label2.text = "Lives: %s" % [new_lives]
+	$PauseLivesDisplay/Label.text = str(new_lives)
 	current_lives = new_lives
 
 func update_death_lives_display():
@@ -34,9 +33,12 @@ func update_death_lives_display():
 
 func pause_screen():
 	anim_player.play("Pause")
+	$PauseMenu/RestartLevel.grab_focus()
 
 func unpause_screen():
 	anim_player.play("Unpause")
+	$PauseMenu/RestartLevel.release_focus()
+	$PauseMenu/QuitMenu.release_focus()
 
 func death_animations():
 	anim_player.queue("ScreenWipe")
@@ -56,3 +58,6 @@ func set_blur(amount):
 func rumble_lives_display():
 	var amount = lives_display_rumble * lives_display_rumble
 	$DeathLivesDisplay.rect_rotation = 10.0 * amount * rand_range(-1, 1)
+
+func _on_RestartLevel_pressed():
+	pass # Replace with function body.

@@ -258,3 +258,6 @@ func clear_selections_and_connections():
 	elif current_connection != null:
 		current_connection.destroy_connection(0.0)
 		current_connection = null
+
+func _on_Exit_body_entered(body):
+	Events.emit_signal("player_left")

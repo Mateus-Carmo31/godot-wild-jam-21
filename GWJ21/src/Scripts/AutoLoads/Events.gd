@@ -19,5 +19,8 @@ signal enemy_died(enemy)
 # ROOM SIGNALS
 signal room_cleared
 
+# GAME LOOP SIGNALS
+signal player_left
+
 # UI SIGNALS
 signal death_animation_ended
