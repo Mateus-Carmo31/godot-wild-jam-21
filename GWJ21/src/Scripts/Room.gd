@@ -3,9 +3,9 @@ class_name Room
 
 export(float) var cam_zoom = 1.0
 export(Array, NodePath) var blockades = []
+export(bool) var is_completed : bool = false
 
 var current_enemies = []
-var is_completed : bool = false
 
 onready var checkpoint = $Checkpoint.global_position
 

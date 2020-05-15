@@ -25,3 +25,6 @@ signal player_left(left_through_exit)
 # UI SIGNALS
 signal death_animation_ended
 signal prompted_restart
+
+# MAP SIGNALS
+signal level_button_clicked(level_id)

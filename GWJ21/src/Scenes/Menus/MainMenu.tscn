@@ -1,0 +1,107 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://src/Scenes/UI/MenuButton.tscn" type="PackedScene" id=1]
+[ext_resource path="res://src/Scenes/Menus/MainMenu.gd" type="Script" id=2]
+
+[sub_resource type="Animation" id=1]
+resource_name = "EnterMenu"
+tracks/0/type = "value"
+tracks/0/path = NodePath("Menu:rect_position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 0.5, 1 ),
+"update": 0,
+"values": [ Vector2( 0, 600 ), Vector2( 0, 0 ) ]
+}
+
+[sub_resource type="Animation" id=2]
+resource_name = "ExitMenu"
+tracks/0/type = "value"
+tracks/0/path = NodePath("Menu:rect_position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 0.5, 1 ),
+"update": 0,
+"values": [ Vector2( 0, 0 ), Vector2( 0, -600 ) ]
+}
+
+[node name="MainMenu" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Menu" type="Control" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = -600.0
+margin_bottom = -600.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TextureRect" type="TextureRect" parent="Menu"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 466.224
+margin_top = 89.9848
+margin_right = -517.776
+margin_bottom = -470.015
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Menu"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 370.259
+margin_top = 298.901
+margin_right = -423.741
+margin_bottom = -68.0986
+__meta__ = {
+"_edit_group_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="Start" parent="Menu/VBoxContainer" instance=ExtResource( 1 )]
+focus_neighbour_top = NodePath("../Quit")
+focus_neighbour_bottom = NodePath("../Credits")
+text = "Start"
+
+[node name="Credits" parent="Menu/VBoxContainer" instance=ExtResource( 1 )]
+margin_top = 79.0
+margin_bottom = 154.0
+focus_neighbour_top = NodePath("../Start")
+focus_neighbour_bottom = NodePath("../Quit")
+focus_mode = 2
+text = "Credits"
+
+[node name="Quit" parent="Menu/VBoxContainer" instance=ExtResource( 1 )]
+margin_top = 158.0
+margin_bottom = 233.0
+focus_neighbour_top = NodePath("../Credits")
+focus_neighbour_bottom = NodePath("../Start")
+focus_mode = 2
+text = "Quit"
+
+[node name="Credits" type="Control" parent="."]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/EnterMenu = SubResource( 1 )
+anims/ExitMenu = SubResource( 2 )
+[connection signal="pressed" from="Menu/VBoxContainer/Start" to="." method="_on_Start_pressed"]
+[connection signal="pressed" from="Menu/VBoxContainer/Credits" to="." method="_on_Credits_pressed"]
+[connection signal="pressed" from="Menu/VBoxContainer/Quit" to="." method="_on_Quit_pressed"]

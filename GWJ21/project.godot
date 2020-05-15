@@ -32,7 +32,7 @@ _global_script_classes=[ {
 "base": "Node2D",
 "class": "Spawner",
 "language": "GDScript",
-"path": "res://Spawner.gd"
+"path": "res://src/Scripts/Spawner.gd"
 } ]
 _global_script_class_icons={
 "Connection": "",
@@ -45,7 +45,7 @@ _global_script_class_icons={
 [application]
 
 config/name="GWJ21"
-run/main_scene="res://TestGame.tscn"
+run/main_scene="res://src/Scenes/Map/MapMenu.tscn"
 boot_splash/image="res://splash_screen.png"
 boot_splash/fullsize=false
 boot_splash/bg_color=Color( 0.0784314, 0.133333, 0.25098, 1 )
@@ -61,6 +61,7 @@ GameHandler="*res://src/Scripts/AutoLoads/GameHandler.gd"
 [display]
 
 window/size/resizable=false
+window/size/fullscreen=true
 window/stretch/mode="2d"
 window/stretch/aspect="keep"
 

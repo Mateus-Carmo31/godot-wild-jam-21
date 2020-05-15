@@ -7,7 +7,8 @@
 [ext_resource path="res://src/Scenes/Spawner.tscn" type="PackedScene" id=5]
 [ext_resource path="res://src/Scenes/BlockadeHorizontal.tscn" type="PackedScene" id=6]
 [ext_resource path="res://src/Scenes/BlockadeVertical.tscn" type="PackedScene" id=7]
-[ext_resource path="res://Spawner.gd" type="Script" id=8]
+[ext_resource path="res://src/Scripts/Spawner.gd" type="Script" id=8]
+
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 225.328, 141.21 )

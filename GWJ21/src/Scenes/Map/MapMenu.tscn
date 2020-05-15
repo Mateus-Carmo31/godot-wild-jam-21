@@ -1,0 +1,174 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://src/Scenes/Map/LevelButton.tscn" type="PackedScene" id=1]
+[ext_resource path="res://src/Scenes/Map/MapMenu.gd" type="Script" id=2]
+[ext_resource path="res://src/Scenes/UI/MenuButton.tscn" type="PackedScene" id=3]
+
+[sub_resource type="Animation" id=1]
+resource_name = "EnterMap"
+tracks/0/type = "value"
+tracks/0/path = NodePath("LevelIcons:rect_position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 0.5, 1 ),
+"update": 0,
+"values": [ Vector2( 0, 600 ), Vector2( 0, 0 ) ]
+}
+tracks/1/type = "method"
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0.1, 0.2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"values": [ {
+"args": [  ],
+"method": "unlock_levels"
+}, {
+"args": [  ],
+"method": "mark_levels_as_completed"
+} ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("MainMenuButton:rect_position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 0.5, 1 ),
+"update": 0,
+"values": [ Vector2( 40.374, 1111.76 ), Vector2( 40.374, 511.759 ) ]
+}
+
+[sub_resource type="Animation" id=2]
+resource_name = "ExitMap"
+tracks/0/type = "value"
+tracks/0/path = NodePath("LevelIcons:rect_position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 0.5, 1 ),
+"update": 0,
+"values": [ Vector2( 0, 0 ), Vector2( 0, -600 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("MainMenuButton:rect_position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 0.6, 1 ),
+"update": 0,
+"values": [ Vector2( 40.374, 511.759 ), Vector2( 40.374, -88.241 ) ]
+}
+
+[sub_resource type="Animation" id=3]
+resource_name = "MarkCompleted"
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:screen_rumble")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0.5, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ 0.2, 0.0 ]
+}
+tracks/1/type = "method"
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0.5 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [  ],
+"method": "mark_last_completed_level"
+} ]
+}
+
+[node name="MapMenu" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="LevelIcons" type="Control" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = 600.0
+margin_bottom = 599.998
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Button" parent="LevelIcons" instance=ExtResource( 1 )]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 159.981
+margin_top = 324.493
+margin_right = -832.019
+margin_bottom = -243.505
+focus_neighbour_right = NodePath("../Button2")
+focus_neighbour_bottom = NodePath("../../MainMenuButton")
+level_id = "level0"
+
+[node name="Button2" parent="LevelIcons" instance=ExtResource( 1 )]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 427.183
+margin_top = 292.493
+margin_right = -564.817
+margin_bottom = -275.507
+focus_neighbour_left = NodePath("../Button")
+focus_neighbour_right = NodePath("../Button3")
+level_id = "level1"
+
+[node name="Button3" parent="LevelIcons" instance=ExtResource( 1 )]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 649.915
+margin_top = 292.493
+margin_right = -342.085
+margin_bottom = -275.507
+focus_neighbour_left = NodePath("../Button2")
+level_id = "level2"
+
+[node name="MainMenuButton" parent="." instance=ExtResource( 3 )]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 40.374
+margin_top = 1111.76
+margin_right = -753.626
+margin_bottom = 586.761
+rect_scale = Vector2( 0.8, 0.8 )
+focus_neighbour_top = NodePath("../LevelIcons/Button")
+text = "Main menu"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/EnterMap = SubResource( 1 )
+anims/ExitMap = SubResource( 2 )
+anims/MarkCompleted = SubResource( 3 )
+[connection signal="pressed" from="MainMenuButton" to="." method="_on_MainMenuButton_pressed"]

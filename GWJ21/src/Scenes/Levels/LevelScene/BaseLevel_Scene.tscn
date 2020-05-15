@@ -1,0 +1,28 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://src/Scripts/TileMap.gd" type="Script" id=1]
+[ext_resource path="res://src/Scenes/Levels/LevelObjects/Exit.tscn" type="PackedScene" id=2]
+[ext_resource path="res://src/Scenes/Player.tscn" type="PackedScene" id=3]
+[ext_resource path="res://src/Scenes/FollowCamera2D.tscn" type="PackedScene" id=4]
+[ext_resource path="res://DungeonTilemap.tres" type="TileSet" id=5]
+
+[node name="Main" type="Node2D"]
+
+[node name="EntitySort" type="YSort" parent="."]
+
+[node name="Player" parent="EntitySort" instance=ExtResource( 3 )]
+
+[node name="Camera2D" parent="EntitySort" instance=ExtResource( 4 )]
+player = NodePath("../Player")
+
+[node name="TileMap" type="TileMap" parent="."]
+scale = Vector2( 4, 4 )
+tile_set = ExtResource( 5 )
+cell_size = Vector2( 16, 16 )
+format = 1
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Exit" parent="." instance=ExtResource( 2 )]

@@ -2,7 +2,7 @@
 
 [ext_resource path="res://assets/BEBAS.ttf" type="DynamicFontData" id=1]
 [ext_resource path="res://src/Scripts/GameUI.gd" type="Script" id=2]
-[ext_resource path="res://ScreenBlur.shader" type="Shader" id=3]
+[ext_resource path="res://assets/ScreenBlur.shader" type="Shader" id=3]
 [ext_resource path="res://assets/Sprites/lives_icon.png" type="Texture" id=4]
 [ext_resource path="res://src/Scenes/UI/MenuButton.tscn" type="PackedScene" id=5]
 
@@ -121,7 +121,7 @@ tracks/2/keys = {
 "values": [ true, false ]
 }
 
-[sub_resource type="Animation" id=9]
+[sub_resource type="Animation" id=6]
 resource_name = "ScreenUnwipe (NoBlur)"
 tracks/0/type = "value"
 tracks/0/path = NodePath("ScreenHider:rect_position")
@@ -160,8 +160,7 @@ tracks/2/keys = {
 "values": [ true, false ]
 }
 
-[sub_resource type="Animation" id=6]
-resource_name = "ScreenWipe"
+[sub_resource type="Animation" id=7]
 tracks/0/type = "value"
 tracks/0/path = NodePath("ScreenHider:rect_position")
 tracks/0/interp = 1
@@ -199,7 +198,7 @@ tracks/2/keys = {
 "values": [ true ]
 }
 
-[sub_resource type="Animation" id=7]
+[sub_resource type="Animation" id=8]
 length = 0.2
 tracks/0/type = "value"
 tracks/0/path = NodePath(".:blur_amount")
@@ -262,7 +261,7 @@ tracks/4/keys = {
 "values": [ true, false ]
 }
 
-[sub_resource type="Animation" id=8]
+[sub_resource type="Animation" id=9]
 length = 3.0
 tracks/0/type = "value"
 tracks/0/path = NodePath("DeathLivesDisplay:modulate")
@@ -449,9 +448,9 @@ text = "3"
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/Pause = SubResource( 4 )
 anims/ScreenUnwipe = SubResource( 5 )
-"anims/ScreenUnwipe (NoBlur)" = SubResource( 9 )
-anims/ScreenWipe = SubResource( 6 )
-anims/Unpause = SubResource( 7 )
-"anims/Update Lives" = SubResource( 8 )
+"anims/ScreenUnwipe (NoBlur)" = SubResource( 6 )
+anims/ScreenWipe = SubResource( 7 )
+anims/Unpause = SubResource( 8 )
+"anims/Update Lives" = SubResource( 9 )
 [connection signal="pressed" from="PauseMenu/RestartLevel" to="." method="_on_RestartLevel_pressed"]
 [connection signal="pressed" from="PauseMenu/QuitMenu" to="." method="_on_QuitMenu_pressed"]

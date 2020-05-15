@@ -12,6 +12,9 @@ var exit : Area2D
 onready var ui_manager = $UI/UI_Control
 
 func _ready():
+	
+	level_id = GameHandler.last_level_id
+	
 	Events.connect("player_entered_room", self, "set_new_room")
 	Events.connect("player_lives_changed", self, "player_death")
 	Events.connect("room_cleared", self, "check_for_level_completed", [], CONNECT_DEFERRED)
@@ -59,7 +62,7 @@ func player_death(_lives):
 		ui_manager.unwipe()
 		yield(ui_manager.anim_player, "animation_finished")
 	else:
-		pass
+		GameHandler.return_to_map(false)
 	
 	can_pause = true
 
@@ -91,16 +94,28 @@ func leave_level(left_through_exit):
 	can_pause = false
 	ui_manager.wipe()
 	yield(ui_manager.anim_player, "animation_finished")
+	get_tree().paused = false
+	disconnect_rooms()
 	
 	if left_through_exit:
+		GameHandler.return_to_map(true)
 		print("Transition! Level was completed!")
 	else:
+		GameHandler.return_to_map(false)
 		print("Transition! Level was not completed!")
-		
 
 func restart_level():
 	
 	can_pause = false
 	ui_manager.wipe()
 	yield(ui_manager.anim_player, "animation_finished")
+	get_tree().paused = false
+	disconnect_rooms()
 	
+	GameHandler.change_to_level(level_id)
+
+# Rooms are bugging when changing levels, so this is a quick fix.
+func disconnect_rooms():
+	for room in get_tree().get_nodes_in_group("rooms"):
+		if room.is_connected("body_exited", room, "_on_Room_body_exited"):
+			room.disconnect("body_exited", room, "_on_Room_body_exited")

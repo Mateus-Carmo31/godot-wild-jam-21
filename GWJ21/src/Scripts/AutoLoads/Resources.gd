@@ -13,8 +13,16 @@ const objects = {
 	"test" : preload("res://src/Scenes/Tests/TestKinematicSelectable2.tscn")
 }
 
+const MAP_MENU = preload("res://src/Scenes/Map/MapMenu.tscn")
+const MAIN_MENU = preload("res://src/Scenes/Menus/MainMenu.tscn")
+
 const LEVELS = {
-	"menu" : "",
-	"level0" : "",
-	"level1" : ""
+	"level0" : preload("res://src/Scenes/Levels/TestLevel.tscn"),
+	"level1" : "",
+	"level2" : ""
+}
+
+const LEVEL_UNLOCKS = {
+	"level0" : ["level1"],
+	"level1" : ["level2"]
 }
