@@ -12,3 +12,9 @@ const enemies = {
 const objects = {
 	"test" : preload("res://src/Scenes/Tests/TestKinematicSelectable2.tscn")
 }
+
+const LEVELS = {
+	"menu" : "",
+	"level0" : "",
+	"level1" : ""
+}

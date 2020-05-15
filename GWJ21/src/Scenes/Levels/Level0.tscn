@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=2]
+[gd_scene load_steps=16 format=2]
 
 [ext_resource path="res://src/Scenes/Player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://src/Scenes/FollowCamera2D.tscn" type="PackedScene" id=2]
@@ -22,6 +22,9 @@ extents = Vector2( 416.753, 219.819 )
 
 [sub_resource type="RectangleShape2D" id=4]
 extents = Vector2( 361.345, 275.652 )
+
+[sub_resource type="CircleShape2D" id=5]
+radius = 52.5359
 
 [node name="Main" instance=ExtResource( 3 )]
 pause_mode = 1
@@ -185,7 +188,11 @@ tile_data = PoolIntArray( -1441810, 5, 0, -1441809, 5, 1, -1441808, 5, 1, -14418
 [node name="Exit" type="Area2D" parent="." index="2"]
 position = Vector2( -244.037, 417.306 )
 script = ExtResource( 10 )
-[connection signal="body_entered" from="Exit" to="EntitySort/Player" method="_on_Exit_body_entered"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Exit" index="0"]
+shape = SubResource( 5 )
+disabled = true
+[connection signal="body_entered" from="Exit" to="Exit" method="_on_Exit_body_entered"]
 
 [editable path="EntitySort/Room"]
 

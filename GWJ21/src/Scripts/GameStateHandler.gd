@@ -1,10 +1,13 @@
 extends Node
 
-var can_pause = true
+export(int) var level_id
+
+var can_pause = false
 var game_paused = false
 
 var last_room : Room
 var player : KinematicBody2D
+var exit : Area2D
 
 onready var ui_manager = $UI/UI_Control
 
@@ -12,8 +15,16 @@ func _ready():
 	Events.connect("player_entered_room", self, "set_new_room")
 	Events.connect("player_lives_changed", self, "player_death")
 	Events.connect("room_cleared", self, "check_for_level_completed", [], CONNECT_DEFERRED)
+	Events.connect("player_left", self, "leave_level")
+	Events.connect("prompted_restart", self, "restart_level")
 	
 	player = get_node("Main/EntitySort/Player") as KinematicBody2D
+	exit = get_node("Main/Exit") as Area2D
+	
+	yield(get_tree().create_timer(0.5), "timeout")
+	ui_manager.unwipe(true)
+	yield(ui_manager.anim_player, "animation_finished")
+	can_pause = true
 
 func set_new_room(room_path):
 	last_room = (get_node(room_path) as Room)
@@ -59,6 +70,7 @@ func check_for_level_completed():
 		level_completed = (room as Room).is_completed
 	
 	if level_completed:
+		exit.set_active()
 		print("Level completed!")
 	else:
 		print("Level not yet completed!")
@@ -73,4 +85,22 @@ func pause_unpause():
 			ui_manager.unpause_screen()
 			get_tree().paused = false
 			print("Unpaused Game!")
-			
+
+func leave_level(left_through_exit):
+	
+	can_pause = false
+	ui_manager.wipe()
+	yield(ui_manager.anim_player, "animation_finished")
+	
+	if left_through_exit:
+		print("Transition! Level was completed!")
+	else:
+		print("Transition! Level was not completed!")
+		
+
+func restart_level():
+	
+	can_pause = false
+	ui_manager.wipe()
+	yield(ui_manager.anim_player, "animation_finished")
+	

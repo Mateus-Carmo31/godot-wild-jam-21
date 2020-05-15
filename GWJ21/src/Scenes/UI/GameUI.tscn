@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://assets/BEBAS.ttf" type="DynamicFontData" id=1]
 [ext_resource path="res://src/Scripts/GameUI.gd" type="Script" id=2]
@@ -106,7 +106,46 @@ tracks/1/keys = {
 "times": PoolRealArray( 0.2, 1 ),
 "transitions": PoolRealArray( 1, 1 ),
 "update": 0,
-"values": [ 2.5, 0.0 ]
+"values": [ 1.5, 0.0 ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("ScreenHider:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ true, false ]
+}
+
+[sub_resource type="Animation" id=9]
+resource_name = "ScreenUnwipe (NoBlur)"
+tracks/0/type = "value"
+tracks/0/path = NodePath("ScreenHider:rect_position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 0.5, 1 ),
+"update": 0,
+"values": [ Vector2( 0, 0 ), Vector2( 0, -600 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:blur_amount")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ 0.0, 0.0 ]
 }
 tracks/2/type = "value"
 tracks/2/path = NodePath("ScreenHider:visible")
@@ -142,10 +181,10 @@ tracks/1/loop_wrap = true
 tracks/1/imported = false
 tracks/1/enabled = true
 tracks/1/keys = {
-"times": PoolRealArray( 0, 0.8 ),
-"transitions": PoolRealArray( 1, 1 ),
+"times": PoolRealArray( 0.8 ),
+"transitions": PoolRealArray( 1 ),
 "update": 0,
-"values": [ 0.0, 2.5 ]
+"values": [ 1.5 ]
 }
 tracks/2/type = "value"
 tracks/2/path = NodePath("ScreenHider:visible")
@@ -284,6 +323,7 @@ script = ExtResource( 2 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
+blur_amount = 1.5
 
 [node name="Label" type="Label" parent="."]
 margin_left = 44.0
@@ -292,17 +332,6 @@ margin_right = 200.0
 margin_bottom = 56.0
 custom_fonts/font = SubResource( 1 )
 text = "Health: 3"
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="ScreenHider" type="ColorRect" parent="."]
-visible = false
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_top = 600.0
-margin_bottom = 600.001
-color = Color( 0.133333, 0.12549, 0.203922, 1 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -316,36 +345,6 @@ margin_right = -1.36041
 __meta__ = {
 "_edit_use_anchors_": false
 }
-
-[node name="DeathLivesDisplay" type="HBoxContainer" parent="."]
-visible = false
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = 438.777
-margin_top = 272.131
-margin_right = -464.223
-margin_bottom = -271.868
-custom_constants/separation = 20
-__meta__ = {
-"_edit_group_": true,
-"_edit_use_anchors_": false
-}
-
-[node name="TextureRect" type="TextureRect" parent="DeathLivesDisplay"]
-margin_right = 80.0
-margin_bottom = 56.0
-rect_min_size = Vector2( 80, 56 )
-texture = ExtResource( 4 )
-expand = true
-stretch_mode = 6
-
-[node name="Label" type="Label" parent="DeathLivesDisplay"]
-margin_left = 100.0
-margin_top = 8.0
-margin_right = 121.0
-margin_bottom = 47.0
-custom_fonts/font = SubResource( 3 )
-text = "3"
 
 [node name="PauseLivesDisplay" type="HBoxContainer" parent="."]
 visible = false
@@ -393,23 +392,66 @@ __meta__ = {
 }
 
 [node name="RestartLevel" parent="PauseMenu" instance=ExtResource( 5 )]
-margin_right = 348.0
+margin_right = 349.0
 focus_neighbour_top = NodePath("../QuitMenu")
 focus_neighbour_bottom = NodePath("../QuitMenu")
+focus_mode = 2
 text = "Restart Level"
 
 [node name="QuitMenu" parent="PauseMenu" instance=ExtResource( 5 )]
 margin_top = 79.0
-margin_right = 348.0
+margin_right = 349.0
 margin_bottom = 154.0
 focus_neighbour_top = NodePath("../RestartLevel")
 focus_neighbour_bottom = NodePath("../RestartLevel")
+focus_mode = 2
 text = "Quit to menu"
+
+[node name="ScreenHider" type="ColorRect" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_bottom = 0.000976563
+color = Color( 0.133333, 0.12549, 0.203922, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="DeathLivesDisplay" type="HBoxContainer" parent="."]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 438.777
+margin_top = 272.131
+margin_right = -464.223
+margin_bottom = -271.868
+custom_constants/separation = 20
+__meta__ = {
+"_edit_group_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="TextureRect" type="TextureRect" parent="DeathLivesDisplay"]
+margin_right = 80.0
+margin_bottom = 56.0
+rect_min_size = Vector2( 80, 56 )
+texture = ExtResource( 4 )
+expand = true
+stretch_mode = 6
+
+[node name="Label" type="Label" parent="DeathLivesDisplay"]
+margin_left = 100.0
+margin_top = 8.0
+margin_right = 121.0
+margin_bottom = 47.0
+custom_fonts/font = SubResource( 3 )
+text = "3"
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/Pause = SubResource( 4 )
 anims/ScreenUnwipe = SubResource( 5 )
+"anims/ScreenUnwipe (NoBlur)" = SubResource( 9 )
 anims/ScreenWipe = SubResource( 6 )
 anims/Unpause = SubResource( 7 )
 "anims/Update Lives" = SubResource( 8 )
 [connection signal="pressed" from="PauseMenu/RestartLevel" to="." method="_on_RestartLevel_pressed"]
+[connection signal="pressed" from="PauseMenu/QuitMenu" to="." method="_on_QuitMenu_pressed"]

@@ -1,12 +1,12 @@
 extends Control
 
-export(float, 0, 5) var blur_amount = 0.0 setget set_blur
+export(float, 0, 5) var blur_amount setget set_blur
 export(float) var lives_display_rumble = 0.0
 
 export var current_lives : int = 3
 
 onready var anim_player := $AnimationPlayer
-onready var blur_rect := $Blur
+onready var blur_rect := get_node("Blur")
 
 func _ready():
 	randomize()
@@ -48,16 +48,28 @@ func death_animations():
 	
 	Events.emit_signal("death_animation_ended")
 
-func unwipe():
-	anim_player.play("ScreenUnwipe")
+func wipe():
+	anim_player.play("ScreenWipe")
+
+func unwipe(no_blur = false):
+	if no_blur:
+		anim_player.play("ScreenUnwipe (NoBlur)")
+	else:
+		anim_player.play("ScreenUnwipe")
 
 func set_blur(amount):
-	(blur_rect.material as ShaderMaterial).set_shader_param("amount", amount)
-	blur_amount = amount
+	if is_inside_tree() and blur_rect != null:
+		(blur_rect.material as ShaderMaterial).set_shader_param("amount", amount)
+		blur_amount = amount
 
 func rumble_lives_display():
 	var amount = lives_display_rumble * lives_display_rumble
 	$DeathLivesDisplay.rect_rotation = 10.0 * amount * rand_range(-1, 1)
 
 func _on_RestartLevel_pressed():
-	pass # Replace with function body.
+	Events.emit_signal("prompted_restart")
+	$PauseMenu/RestartLevel.release_focus()
+
+func _on_QuitMenu_pressed():
+	Events.emit_signal("player_left", false)
+	$PauseMenu/QuitMenu.release_focus()

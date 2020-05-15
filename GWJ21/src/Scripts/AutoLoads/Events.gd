@@ -20,7 +20,8 @@ signal enemy_died(enemy)
 signal room_cleared
 
 # GAME LOOP SIGNALS
-signal player_left
+signal player_left(left_through_exit)
 
 # UI SIGNALS
 signal death_animation_ended
+signal prompted_restart

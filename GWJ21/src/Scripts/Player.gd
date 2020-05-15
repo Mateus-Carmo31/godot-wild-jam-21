@@ -238,6 +238,12 @@ func on_hit(knockback_dir : Vector2):
 			health = 3
 			
 			clear_selections_and_connections()
+			velocity = Vector2.ZERO
+			dazed = false
+			can_fire = true
+			$ShootTimer.stop()
+			is_dashing = false
+			animation_state.travel("Idle")
 			
 			Events.emit_signal("screen_shake", 0.5)
 			Events.emit_signal("player_health_changed", health)
@@ -258,6 +264,3 @@ func clear_selections_and_connections():
 	elif current_connection != null:
 		current_connection.destroy_connection(0.0)
 		current_connection = null
-
-func _on_Exit_body_entered(body):
-	Events.emit_signal("player_left")
