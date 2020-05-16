@@ -2,9 +2,6 @@ extends Button
 
 const COMPLETED_STYLE = preload("res://src/Scenes/Map/LevelButtonCompleted.tres")
 
-export(String) var level_id
-var is_completed = false
-
 func _ready():
 	pass
 
@@ -15,7 +12,7 @@ func _on_Button_focus_exited():
 	$TextureRect.hide()
 
 func _on_Button_pressed():
-	Events.emit_signal("level_button_clicked", level_id)
+	Events.emit_signal("level_button_clicked", name)
 	release_focus()
 
 func set_completed():

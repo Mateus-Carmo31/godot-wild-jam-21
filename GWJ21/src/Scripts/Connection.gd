@@ -26,6 +26,8 @@ func _init(o1 : KinematicSelectable, o2 : KinematicSelectable):
 	
 	self.add_point(o1.position)
 	self.add_point(o2.position)
+	
+	z_index = 0
 
 func _physics_process(delta):
 	

@@ -96,7 +96,7 @@ func movement(delta):
 	# ------- PUSHING MECHANICS ----------
 	
 	if pushed_body != null and pushed_dir == velocity.normalized():
-		pushed_body.velocity += velocity.normalized() * delta * push_force
+		pushed_body.velocity += velocity.normalized() * delta * push_force / pushed_body.mass
 	elif pushed_body != null and pushed_dir != velocity.normalized():
 		pushed_body = null
 		pushed_dir = null
@@ -105,7 +105,7 @@ func movement(delta):
 	if col:
 		var collider = col.collider
 		if collider is KinematicSelectable and collider.is_pushable == true:
-			collider.velocity += velocity.normalized() * delta * push_force
+			collider.velocity += velocity.normalized() * delta * push_force / collider.mass
 			pushed_body = col.collider
 			pushed_dir = velocity.normalized()
 		else:

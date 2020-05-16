@@ -4,12 +4,11 @@
 [ext_resource path="res://src/Scripts/KinematicSelectable.gd" type="Script" id=2]
 [ext_resource path="res://src/Scenes/SelectEffect.tscn" type="PackedScene" id=3]
 
-[sub_resource type="CapsuleShape2D" id=1]
-radius = 12.8263
-height = 19.702
+[sub_resource type="RectangleShape2D" id=3]
+extents = Vector2( 21.7323, 20.0815 )
 
 [sub_resource type="RectangleShape2D" id=2]
-extents = Vector2( 21.2787, 19.3804 )
+extents = Vector2( 23.061, 21.5763 )
 
 [node name="Object" type="KinematicBody2D"]
 collision_layer = 16
@@ -25,14 +24,14 @@ region_enabled = true
 region_rect = Rect2( 1, 19, 13, 12 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2( 0, -0.08 )
-rotation = 1.5708
-shape = SubResource( 1 )
+position = Vector2( 0, -13.2 )
+shape = SubResource( 3 )
 
 [node name="SelectHitbox" type="Area2D" parent="."]
 position = Vector2( 0, -13.2 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="SelectHitbox"]
+position = Vector2( -0.166084, 0 )
 shape = SubResource( 2 )
 
 [node name="SelectEffect" parent="." instance=ExtResource( 3 )]

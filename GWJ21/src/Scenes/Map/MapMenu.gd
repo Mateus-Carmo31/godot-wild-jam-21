@@ -31,19 +31,19 @@ func rumble_screen():
 
 func unlock_levels():
 	for button in $LevelIcons.get_children():
-		if GameHandler.level_unlock_table[button.level_id] == true:
+		if GameHandler.level_unlock_table[button.name] == true:
 			button.show()
 
 func mark_levels_as_completed():
 	for button in $LevelIcons.get_children():
-		if GameHandler.level_completion_table[button.level_id] == true:
-			if button.level_id != GameHandler.last_completed_level:
+		if GameHandler.level_completion_table[button.name] == true:
+			if button.name != GameHandler.last_completed_level:
 				button.set_completed()
 
 func mark_last_completed_level():
 	if GameHandler.last_completed_level != null:
 		for button in $LevelIcons.get_children():
-			if button.level_id == GameHandler.last_completed_level:
+			if button.name == GameHandler.last_completed_level:
 				button.set_completed()
 				GameHandler.last_completed_level = null
 				break
@@ -51,11 +51,12 @@ func mark_last_completed_level():
 func grab_level_focus():
 	if GameHandler.last_level_id != null:
 		for button in $LevelIcons.get_children():
-			if button.level_id == GameHandler.last_level_id:
+			if button.name == GameHandler.last_level_id:
 				button.grab_focus()
 				break
 	else:
-		$LevelIcons/Button.grab_focus()
+		$LevelIcons/level0.grab_focus()
+		GameHandler.last_level_id = "level0"
 
 func enter_level(level_id):
 	

@@ -9,6 +9,7 @@
 [node name="Main" type="Node2D"]
 
 [node name="EntitySort" type="YSort" parent="."]
+z_index = 1
 
 [node name="Player" parent="EntitySort" instance=ExtResource( 3 )]
 
@@ -17,6 +18,7 @@ player = NodePath("../Player")
 
 [node name="TileMap" type="TileMap" parent="."]
 scale = Vector2( 4, 4 )
+z_index = -1
 tile_set = ExtResource( 5 )
 cell_size = Vector2( 16, 16 )
 format = 1

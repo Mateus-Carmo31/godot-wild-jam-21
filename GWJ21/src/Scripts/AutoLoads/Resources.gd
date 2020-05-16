@@ -20,9 +20,18 @@ const MAP_MENU = preload("res://src/Scenes/Map/MapMenu.tscn")
 const MAIN_MENU = preload("res://src/Scenes/Menus/MainMenu.tscn")
 
 const LEVELS = {
-	"level0" : preload("res://src/Scenes/Levels/TestLevel.tscn"),
+	"level0" : preload("res://src/Scenes/Levels/Level0.tscn"),
 	"level1" : "",
-	"level2" : ""
+	"level2" : "",
+	"level3" : "",
+	"level4" : "",
+	"level5" : "",
+	"level6" : "",
+	"level7" : "",
+	"level8" : "",
+	"level9" : "",
+	"level10" : "",
+	"level11" : "",
 }
 
 const LEVEL_UNLOCKS = {
