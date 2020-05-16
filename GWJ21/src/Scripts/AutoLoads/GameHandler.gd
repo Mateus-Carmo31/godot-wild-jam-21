@@ -13,6 +13,7 @@ func _ready():
 		level_unlock_table[level_key] = false
 	
 	level_unlock_table["level0"] = true
+	level_unlock_table["level1"] = true
 
 func return_to_map(was_level_completed):
 	

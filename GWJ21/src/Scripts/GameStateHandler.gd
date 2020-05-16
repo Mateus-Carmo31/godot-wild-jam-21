@@ -62,11 +62,14 @@ func player_death(_lives):
 		ui_manager.unwipe()
 		yield(ui_manager.anim_player, "animation_finished")
 	else:
+		disconnect_rooms()
 		GameHandler.return_to_map(false)
 	
 	can_pause = true
 
 func check_for_level_completed():
+	
+	print(get_tree().get_nodes_in_group("rooms"))
 	
 	var level_completed = true
 	for room in get_tree().get_nodes_in_group("rooms"):
@@ -115,6 +118,8 @@ func restart_level():
 	GameHandler.change_to_level(level_id)
 
 # Rooms are bugging when changing levels, so this is a quick fix.
+# Player is registering as having "left" the room during scene change,
+# ask about this later in the discord.
 func disconnect_rooms():
 	for room in get_tree().get_nodes_in_group("rooms"):
 		if room.is_connected("body_exited", room, "_on_Room_body_exited"):

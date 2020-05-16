@@ -115,8 +115,8 @@ __meta__ = {
 [node name="LevelIcons" type="Control" parent="."]
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_top = 599.848
-margin_bottom = 599.846
+margin_top = 600.0
+margin_bottom = 600.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -140,18 +140,27 @@ margin_top = 323.371
 margin_right = -687.078
 margin_bottom = -244.627
 rect_scale = Vector2( 1.2, 1.2 )
-focus_neighbour_right = NodePath("../level1")
+focus_neighbour_left = NodePath("../level0")
+focus_neighbour_top = NodePath("../level3")
+focus_neighbour_right = NodePath("../level2")
 focus_neighbour_bottom = NodePath("../../MainMenuButton")
+
+[node name="TextureRect" parent="LevelIcons/level1" index="0"]
+margin_left = -30.168
+margin_top = 32.0
+margin_right = 1.832
+margin_bottom = 64.0
+rect_rotation = -90.0
 
 [node name="level2" parent="LevelIcons" instance=ExtResource( 1 )]
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 343.322
-margin_top = 323.371
+margin_top = 322.824
 margin_right = -648.678
-margin_bottom = -244.627
+margin_bottom = -245.174
 rect_scale = Vector2( 1.2, 1.2 )
-focus_neighbour_right = NodePath("../level1")
+focus_neighbour_right = NodePath("../level8")
 focus_neighbour_bottom = NodePath("../../MainMenuButton")
 
 [node name="level3" parent="LevelIcons" instance=ExtResource( 1 )]
@@ -162,8 +171,11 @@ margin_top = 287.169
 margin_right = -687.078
 margin_bottom = -280.829
 rect_scale = Vector2( 1.2, 1.2 )
-focus_neighbour_right = NodePath("../level1")
-focus_neighbour_bottom = NodePath("../../MainMenuButton")
+focus_neighbour_top = NodePath("../level4")
+focus_neighbour_bottom = NodePath("../level1")
+
+[node name="TextureRect" parent="LevelIcons/level3" index="0"]
+margin_bottom = 1.832
 
 [node name="level4" parent="LevelIcons" instance=ExtResource( 1 )]
 anchor_right = 1.0
@@ -269,3 +281,7 @@ anims/EnterMap = SubResource( 1 )
 anims/ExitMap = SubResource( 2 )
 anims/MarkCompleted = SubResource( 3 )
 [connection signal="pressed" from="MainMenuButton" to="." method="_on_MainMenuButton_pressed"]
+
+[editable path="LevelIcons/level1"]
+
+[editable path="LevelIcons/level3"]

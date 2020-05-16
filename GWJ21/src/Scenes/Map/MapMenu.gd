@@ -7,6 +7,11 @@ onready var anim_player = $AnimationPlayer
 func _ready():
 	randomize()
 	
+	print(get_tree().get_nodes_in_group("rooms"))
+	
+	for button in $LevelIcons.get_children():
+		button.hide()
+	
 	Events.connect("level_button_clicked", self, "enter_level")
 	
 	anim_player.play("EnterMap")

@@ -7,6 +7,7 @@
 [ext_resource path="res://DungeonTilemap.tres" type="TileSet" id=5]
 
 [node name="Main" type="Node2D"]
+pause_mode = 1
 
 [node name="EntitySort" type="YSort" parent="."]
 z_index = 1

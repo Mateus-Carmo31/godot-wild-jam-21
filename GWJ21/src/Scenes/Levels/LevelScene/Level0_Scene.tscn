@@ -86,6 +86,7 @@ position = Vector2( 2431.5, -625.601 )
 
 [node name="Room4" parent="EntitySort" index="7" instance=ExtResource( 3 )]
 position = Vector2( 2521.68, -1105.42 )
+cam_zoom = 1.2
 is_completed = true
 
 [node name="CollisionShape2D" parent="EntitySort/Room4" index="0"]

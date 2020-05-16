@@ -21,7 +21,7 @@ const MAIN_MENU = preload("res://src/Scenes/Menus/MainMenu.tscn")
 
 const LEVELS = {
 	"level0" : preload("res://src/Scenes/Levels/Level0.tscn"),
-	"level1" : "",
+	"level1" : preload("res://src/Scenes/Levels/Level1.tscn"),
 	"level2" : "",
 	"level3" : "",
 	"level4" : "",
@@ -36,5 +36,5 @@ const LEVELS = {
 
 const LEVEL_UNLOCKS = {
 	"level0" : ["level1"],
-	"level1" : ["level2"]
+	"level1" : ["level2", "level3"]
 }
