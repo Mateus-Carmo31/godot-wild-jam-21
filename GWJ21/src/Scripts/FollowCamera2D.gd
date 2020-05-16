@@ -37,10 +37,10 @@ func _physics_process(delta):
 		trauma = max(trauma - decay * delta, 0)
 		shake()
 	
-	if Input.is_key_pressed(KEY_Q):
-		zoom = Vector2.ONE * 0.5
-	elif Input.is_key_pressed(KEY_E):
-		zoom = Vector2.ONE * 2.0
+#	if Input.is_key_pressed(KEY_Q):
+#		zoom = Vector2.ONE * 0.5
+#	elif Input.is_key_pressed(KEY_E):
+#		zoom = Vector2.ONE * 2.0
 
 func add_trauma(amount : float):
 	print("Applied ", amount, " to trauma!")

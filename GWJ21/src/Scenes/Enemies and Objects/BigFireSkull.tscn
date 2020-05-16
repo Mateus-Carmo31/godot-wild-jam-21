@@ -1,0 +1,41 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://assets/Sprites/enemies_and_objects.png" type="Texture" id=1]
+[ext_resource path="res://src/Scenes/SelectEffect.tscn" type="PackedScene" id=2]
+[ext_resource path="res://src/Scripts/RangedEnemy.gd" type="Script" id=3]
+
+[sub_resource type="CircleShape2D" id=1]
+radius = 17.0
+
+[sub_resource type="CircleShape2D" id=2]
+radius = 20.0
+
+[node name="Enemy" type="KinematicBody2D"]
+scale = Vector2( 1.2, 1.2 )
+script = ExtResource( 3 )
+health = 2
+mass = 3.0
+max_speed = 20.0
+charge_time = 0.1
+fire_rate = 0.1
+
+[node name="Sprite" type="Sprite" parent="."]
+position = Vector2( 0, -5.68159 )
+scale = Vector2( 4, 4 )
+texture = ExtResource( 1 )
+region_enabled = true
+region_rect = Rect2( 34, 0, 11, 14 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource( 1 )
+
+[node name="SelectHitbox" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SelectHitbox"]
+shape = SubResource( 2 )
+
+[node name="SelectEffect" parent="." instance=ExtResource( 2 )]
+
+[node name="Tween" type="Tween" parent="."]
+playback_process_mode = 0
+[connection signal="tween_completed" from="Tween" to="." method="_on_tween_completed"]

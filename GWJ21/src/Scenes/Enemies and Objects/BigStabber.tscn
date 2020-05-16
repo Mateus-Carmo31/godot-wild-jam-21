@@ -17,11 +17,10 @@ script = ExtResource( 1 )
 health = 2
 mass = 2.0
 move_speed = 10.0
-max_speed = 60.0
+max_speed = 70.0
 max_daze = 0.6
 attack_mode = 1
-attack_telegraph = 0.6
-min_attack_dist = 100.0
+min_attack_dist = 110.0
 
 [node name="Sprite" type="Sprite" parent="."]
 scale = Vector2( 4, 4 )

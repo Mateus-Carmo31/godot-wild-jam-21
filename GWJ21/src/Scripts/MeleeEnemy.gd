@@ -6,7 +6,7 @@ enum AttackMode {SLASH, STAB}
 export(AttackMode) var attack_mode
 export(float) var attack_telegraph = 0.6
 export(float) var attack_cooldown = 1.0
-export(float, 50, 100, 1) var min_attack_dist := 50.0
+export(float, 50, 110, 1) var min_attack_dist := 50.0
 
 var state = APPROACH
 var hitbox_on : bool = false
