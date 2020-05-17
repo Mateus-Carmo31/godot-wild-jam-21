@@ -1,0 +1,98 @@
+[gd_scene load_steps=18 format=2]
+
+[ext_resource path="res://assets/sfx/player_shoot.wav" type="AudioStream" id=1]
+[ext_resource path="res://assets/sfx/step.wav" type="AudioStream" id=2]
+[ext_resource path="res://assets/sfx/player_damage.wav" type="AudioStream" id=3]
+[ext_resource path="res://assets/sfx/impact1.wav" type="AudioStream" id=4]
+[ext_resource path="res://assets/sfx/dash.wav" type="AudioStream" id=5]
+[ext_resource path="res://assets/sfx/enemy_appears.wav" type="AudioStream" id=6]
+[ext_resource path="res://src/Scripts/AutoLoads/AudioHandler.gd" type="Script" id=7]
+[ext_resource path="res://assets/sfx/enemy_shoot.wav" type="AudioStream" id=8]
+[ext_resource path="res://assets/sfx/enemy_charge.wav" type="AudioStream" id=9]
+[ext_resource path="res://assets/sfx/enemy_damage.wav" type="AudioStream" id=10]
+[ext_resource path="res://assets/sfx/enemy_melee.wav" type="AudioStream" id=11]
+[ext_resource path="res://assets/sfx/life_lost.wav" type="AudioStream" id=12]
+[ext_resource path="res://assets/sfx/menu_move.wav" type="AudioStream" id=13]
+[ext_resource path="res://assets/sfx/menu_select.wav" type="AudioStream" id=14]
+[ext_resource path="res://assets/music/arpanauts.ogg" type="AudioStream" id=15]
+[ext_resource path="res://assets/music/underclocked (underunderclocked mix).ogg" type="AudioStream" id=16]
+[ext_resource path="res://assets/music/A Night Of Dizzy Spells.ogg" type="AudioStream" id=17]
+
+[node name="AudioHandler" type="Node"]
+pause_mode = 2
+script = ExtResource( 7 )
+
+[node name="Step" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 2 )
+volume_db = -5.0
+pitch_scale = 0.8
+bus = "SFX"
+
+[node name="PlayerProjectile" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 1 )
+volume_db = -20.0
+pitch_scale = 0.9
+bus = "SFX"
+
+[node name="PlayerHurt" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 3 )
+bus = "SFX"
+
+[node name="Dash" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 5 )
+volume_db = -2.0
+pitch_scale = 0.96
+bus = "SFX"
+
+[node name="ObjectDestroy" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 4 )
+volume_db = -10.0
+
+[node name="EnemyAppears" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 6 )
+volume_db = -5.0
+
+[node name="EnemyHurt" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 10 )
+volume_db = -10.0
+
+[node name="EnemyCharge" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 9 )
+volume_db = -10.0
+
+[node name="EnemyShoot" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 8 )
+volume_db = -8.0
+
+[node name="EnemyMelee" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 11 )
+volume_db = -5.0
+
+[node name="LifeLost" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 12 )
+volume_db = -10.0
+pitch_scale = 0.9
+
+[node name="MenuMove" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 13 )
+volume_db = -10.0
+pitch_scale = 0.8
+
+[node name="MenuSelect" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 14 )
+volume_db = -10.0
+pitch_scale = 0.8
+
+[node name="Music" type="Node" parent="."]
+
+[node name="Song0" type="AudioStreamPlayer" parent="Music"]
+stream = ExtResource( 17 )
+volume_db = -10.0
+
+[node name="Song1" type="AudioStreamPlayer" parent="Music"]
+stream = ExtResource( 15 )
+volume_db = -10.0
+
+[node name="Song2" type="AudioStreamPlayer" parent="Music"]
+stream = ExtResource( 16 )
+volume_db = -10.0

@@ -18,10 +18,10 @@ extents = Vector2( 357.881, 272.779 )
 [sub_resource type="RectangleShape2D" id=3]
 extents = Vector2( 330.083, 239.384 )
 
-[sub_resource type="RectangleShape2D" id=5]
+[sub_resource type="RectangleShape2D" id=4]
 extents = Vector2( 298.151, 155.716 )
 
-[sub_resource type="DynamicFont" id=4]
+[sub_resource type="DynamicFont" id=5]
 size = 30
 use_filter = true
 extra_spacing_space = 3
@@ -91,7 +91,7 @@ is_completed = true
 
 [node name="CollisionShape2D" parent="EntitySort/Room4" index="0"]
 position = Vector2( 5.94446, 0 )
-shape = SubResource( 5 )
+shape = SubResource( 4 )
 
 [node name="CamPoint" parent="EntitySort/Room4" index="1"]
 position = Vector2( 5.94458, -87.2217 )
@@ -128,7 +128,7 @@ margin_left = -60.4893
 margin_top = 3.48572
 margin_right = 608.511
 margin_bottom = 96.4857
-custom_fonts/font = SubResource( 4 )
+custom_fonts/font = SubResource( 5 )
 text = "welcome to your first day on the job, newbie!
 
 Let's get you started so you can go to work asap!"
@@ -141,7 +141,7 @@ margin_left = 843.0
 margin_top = -133.963
 margin_right = 1661.0
 margin_bottom = 23.0372
-custom_fonts/font = SubResource( 4 )
+custom_fonts/font = SubResource( 5 )
 text = "You can use pulling magic, right?
 Just shoot with the left mouse button, and use the right mouse button to pull the selected objects together!
 
@@ -157,7 +157,7 @@ margin_left = 843.0
 margin_top = 551.419
 margin_right = 1661.0
 margin_bottom = 676.419
-custom_fonts/font = SubResource( 4 )
+custom_fonts/font = SubResource( 5 )
 text = "You're slower when you have a conjuring a connection, so press R if you need to release it!
 You can also dash with left shift to get out of danger, but your connection will also be severed!"
 align = 1
@@ -171,7 +171,7 @@ margin_left = 2724.3
 margin_top = 117.706
 margin_right = 3176.3
 margin_bottom = 466.706
-custom_fonts/font = SubResource( 4 )
+custom_fonts/font = SubResource( 5 )
 text = "Your job from now on will be to clean up any monsters that are clogging up the leylines.
 
 They are a nasty bunch, so take extra care when dealing with them!
@@ -188,7 +188,7 @@ margin_left = 2243.74
 margin_top = -1503.74
 margin_right = 2809.74
 margin_bottom = -1314.74
-custom_fonts/font = SubResource( 4 )
+custom_fonts/font = SubResource( 5 )
 text = "Good job! Now hop into the portal to leave.
 
 Welcome to Janus cleaning, newbie!"

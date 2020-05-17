@@ -7,6 +7,8 @@ onready var anim_player = $AnimationPlayer
 func _ready():
 	randomize()
 	
+	screen_rumble = 0
+	
 	print(get_tree().get_nodes_in_group("rooms"))
 	
 	for button in $LevelIcons.get_children():
@@ -46,6 +48,8 @@ func mark_levels_as_completed():
 				button.set_completed()
 
 func mark_last_completed_level():
+	AudioHandler.play_sfx("LifeLost")
+	
 	if GameHandler.last_completed_level != null:
 		for button in $LevelIcons.get_children():
 			if button.name == GameHandler.last_completed_level:

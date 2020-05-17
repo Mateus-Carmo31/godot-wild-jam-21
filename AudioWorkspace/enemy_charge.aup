@@ -1,0 +1,37 @@
+<?xml version="1.0" standalone="no" ?>
+<!DOCTYPE project PUBLIC "-//audacityproject-1.3.0//DTD//EN" "http://audacity.sourceforge.net/xml/audacityproject-1.3.0.dtd" >
+<project xmlns="http://audacity.sourceforge.net/xml/" projname="enemy_charge_data" version="1.3.0" audacityversion="2.4.0" sel0="0.0000000000" sel1="0.0000000000" vpos="0" h="0.0000000000" zoom="759.9995458880" rate="44100.0" snapto="off" selectionformat="hh:mm:ss + milliseconds" frequencyformat="Hz" bandwidthformat="octaves">
+	<tags/>
+	<wavetrack name="Faixa de Áudio" isSelected="1" height="150" minimized="0" channel="2" linked="0" mute="0" solo="0" rate="44100" gain="1.0" pan="0.0" colorindex="0">
+		<waveclip offset="0.00000000" colorindex="0">
+			<sequence maxsamples="262144" sampleformat="262159" numsamples="22021">
+				<waveblock start="0">
+					<simpleblockfile filename="e0808513.au" len="22021" min="-0.828398" max="0.891251" rms="0.138268"/>
+				</waveblock>
+			</sequence>
+			<envelope numpoints="8">
+				<controlpoint t="0.226315924701" val="0.598591566086"/>
+				<controlpoint t="0.485526605899" val="0.774647891521"/>
+				<controlpoint t="0.499341238472" val="1.030516559919"/>
+				<controlpoint t="0.499341238472" val="1.000000000000"/>
+				<controlpoint t="0.998683642100" val="1.000000000000"/>
+				<controlpoint t="0.998683642100" val="0.000000136149"/>
+				<controlpoint t="1.499182508313" val="1.000000000000"/>
+				<controlpoint t="1.499182508313" val="0.859154939651"/>
+			</envelope>
+		</waveclip>
+		<waveclip offset="0.49934240" colorindex="0">
+			<sequence maxsamples="262144" sampleformat="262159" numsamples="1683">
+				<waveblock start="0">
+					<simpleblockfile filename="e0808bcb.au" len="1683" min="0.0" max="0.0" rms="0.0"/>
+				</waveblock>
+			</sequence>
+			<envelope numpoints="4">
+				<controlpoint t="0.537504503778" val="1.000000000000"/>
+				<controlpoint t="0.537504503778" val="0.000000136149"/>
+				<controlpoint t="1.038003369991" val="1.000000000000"/>
+				<controlpoint t="1.038003369991" val="0.859154939651"/>
+			</envelope>
+		</waveclip>
+	</wavetrack>
+</project>

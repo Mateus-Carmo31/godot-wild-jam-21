@@ -2,6 +2,7 @@ extends KinematicBody2D
 
 const SELECTOR : PackedScene = preload("res://src/Scenes/SelectorProjectile.tscn")
 const BOOK : PackedScene = preload("res://src/Scenes/Weapons/PlayerBook.tscn")
+const CONNECTION : PackedScene = preload("res://src/Scenes/Connection.tscn")
 
 const ACCEL = 12
 const MAX_SPEED = 160
@@ -84,6 +85,8 @@ func movement(delta):
 		# Applies damping if the player turns too suddenly
 		if input.dot(velocity.normalized()) < -0.5:
 			velocity *= pow(1.0-TURN_DAMP, delta * 10)
+		
+		AudioHandler.play_walk_sfx()
 		
 		animation_state.travel("Move")
 	else:
@@ -195,6 +198,7 @@ func launch_projectile(dir : Vector2):
 	proj.position = $LaunchPoint.global_position
 	get_parent().add_child(proj)
 	proj.launch(dir)
+	AudioHandler.play_sfx("PlayerProjectile")
 
 func on_projectile_miss():
 	print("Missed!")
@@ -204,10 +208,12 @@ func on_projectile_hit(hit_obj):
 	if selected_obj == null:
 		if current_connection != null:
 			current_connection.destroy_connection(0.0)
+			current_connection = null
 		selected_obj = hit_obj
 		selected_obj.select()
 	elif hit_obj != selected_obj:
-		current_connection = Connection.new(selected_obj, hit_obj)
+		current_connection = CONNECTION.instance()
+		current_connection.form(selected_obj, hit_obj)
 		current_connection.connect("connection_broken", self, "on_connection_broken")
 		selected_obj = null
 		hit_obj.select()
@@ -245,11 +251,13 @@ func on_hit(knockback_dir : Vector2):
 			is_dashing = false
 			animation_state.travel("Idle")
 			
-			Events.emit_signal("screen_shake", 0.5)
+			Events.emit_signal("screen_shake", 0.6)
 			Events.emit_signal("player_health_changed", health)
 			Events.emit_signal("player_lives_changed", lives)
 			print("Player dead, yo!")
 			# WIP
+		
+		AudioHandler.play_sfx("PlayerHurt")
 
 func _on_InvincibilityTimer_timeout():
 	invulnerable = false

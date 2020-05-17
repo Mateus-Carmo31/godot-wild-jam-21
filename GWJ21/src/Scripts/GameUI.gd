@@ -12,6 +12,10 @@ func _ready():
 	randomize()
 	Events.connect("player_health_changed", self, "update_health_display")
 	Events.connect("player_lives_changed", self, "update_lives_display")
+	
+	$PauseMenu.hide()
+	$DeathLivesDisplay.hide()
+	$PauseLivesDisplay.hide()
 
 func _process(delta):
 	if lives_display_rumble > 0.0:
@@ -30,6 +34,7 @@ func update_lives_display(new_lives):
 
 func update_death_lives_display():
 	$DeathLivesDisplay/Label.text = str(current_lives)
+	AudioHandler.play_sfx("LifeLost")
 
 func pause_screen():
 	anim_player.play("Pause")

@@ -25,7 +25,7 @@ position = Vector2( 3.21865e-06, -9.54956 )
 shape = SubResource( 1 )
 
 [node name="Checkpoint" parent="EntitySort/Room" index="2"]
-position = Vector2( 0, 302.758 )
+position = Vector2( 0, 319.77 )
 
 [node name="Spawner" parent="EntitySort/Room" index="3" instance=ExtResource( 3 )]
 position = Vector2( -237.004, -70.3198 )
@@ -59,7 +59,7 @@ shape = SubResource( 2 )
 position = Vector2( 1.43201, -43.6025 )
 
 [node name="Checkpoint" parent="EntitySort/Room2" index="2"]
-position = Vector2( 0, 399.203 )
+position = Vector2( -1.43201, 427.852 )
 
 [node name="Spawner" parent="EntitySort/Room2" index="3" instance=ExtResource( 3 )]
 position = Vector2( -246.255, -55.7922 )

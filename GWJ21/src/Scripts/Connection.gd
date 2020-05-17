@@ -1,7 +1,6 @@
 extends Line2D
 class_name Connection
 
-const CHAIN_TEXTURE = preload("res://assets/Sprites/connection_chain.png")
 const PULL_ACCEL = 200.0
 
 var body1 : KinematicSelectable = null
@@ -11,11 +10,7 @@ var is_pulling = false
 
 signal connection_broken
 
-func _init(o1 : KinematicSelectable, o2 : KinematicSelectable):
-	
-	default_color = Color.white
-	texture = CHAIN_TEXTURE
-	texture_mode = Line2D.LINE_TEXTURE_TILE
+func form(o1 : KinematicSelectable, o2 : KinematicSelectable):
 	
 	scale = Vector2(2,2)
 	

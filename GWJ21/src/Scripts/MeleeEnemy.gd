@@ -79,16 +79,15 @@ func attack_state(delta):
 			else:
 				$Weapon.rotation = lerp_angle($Weapon.rotation, $AttackPivot.rotation, delta * 5.0)
 		else:
-			
 			var forward_dir = Vector2(cos($AttackPivot.rotation), sin($AttackPivot.rotation))
 			$Weapon.position = lerp($Weapon.position, $AttackPivot.position - forward_dir * 30.0, delta*5.0)
-			
 			$Weapon.rotation = lerp_angle($Weapon.rotation, $AttackPivot.rotation+deg2rad(90.0), delta * 5.0)
 
 
 func slash_attack():
 	
 	$StateSwitchTimer.disconnect("timeout", self, "slash_attack")
+	AudioHandler.play_sfx("EnemyMelee")
 	
 	hitbox_on = true
 	if current_facing == true:
@@ -108,6 +107,7 @@ func slash_attack():
 func stab_attack():
 	
 	$StateSwitchTimer.disconnect("timeout", self, "stab_attack")
+	AudioHandler.play_sfx("EnemyMelee")
 	
 	var forward_dir = Vector2(cos($AttackPivot.rotation), sin($AttackPivot.rotation))
 	

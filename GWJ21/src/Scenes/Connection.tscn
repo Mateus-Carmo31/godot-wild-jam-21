@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://src/Scripts/Connection.gd" type="Script" id=1]
+[ext_resource path="res://assets/Sprites/connection_chain.png" type="Texture" id=2]
+
+[node name="Connection" type="Line2D"]
+default_color = Color( 1, 1, 1, 1 )
+texture = ExtResource( 2 )
+texture_mode = 1
+script = ExtResource( 1 )

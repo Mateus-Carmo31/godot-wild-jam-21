@@ -24,6 +24,7 @@ func spawn(current_player : NodePath):
 	
 	if not object_spawner:
 		n_entity.start_enemy(current_player)
+		AudioHandler.play_sfx("EnemyAppears")
 
 func delete_spawned_object():
 	if object_path:

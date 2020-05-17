@@ -33,8 +33,14 @@ func select():
 	add_daze(max_daze)
 
 func take_damage(damage_taken : int):
-	.take_damage(damage_taken)
-	add_daze(max_daze)
+	if not unbreakable:
+		health = max(health-damage_taken, 0)
+		add_daze(max_daze)
+		AudioHandler.play_sfx("EnemyHurt")
+	
+	if health == 0:
+		destroy_self()
+		print(name, "enemy died!")
 
 func start_enemy(player : NodePath):
 	Events.emit_signal("enemy_spawned", self)

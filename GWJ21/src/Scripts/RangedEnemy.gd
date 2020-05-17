@@ -53,15 +53,21 @@ func dazed_state(delta):
 func charge_projectile():
 	state = CHARGING
 	print("Charging!")
+	
 	$Tween.interpolate_property($Sprite, "scale", 
 								$Sprite.scale, $Sprite.scale + Vector2(-0.3, 0.5),
 								charge_time, Tween.TRANS_CUBIC, Tween.EASE_OUT)
-		
+	
+	if charge_time >= 0.54:
+		AudioHandler.play_sfx("EnemyCharge")
+	
 	$Tween.start()
 
 func _on_tween_completed(object, key):
 	if object == $Sprite and key == ":scale" and state == CHARGING:
 		print("SHOOT!")
+		
+		AudioHandler.play_sfx("EnemyShoot")
 		
 		var proj = ProjectileScene.instance()
 		var launch_dir = global_position.direction_to(get_node(current_player).global_position)

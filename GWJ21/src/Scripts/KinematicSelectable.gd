@@ -47,6 +47,11 @@ func _on_collision(collided_with : KinematicSelectable):
 func take_damage(damage_taken : int):
 	if not unbreakable:
 		health = max(health-damage_taken, 0)
+		AudioHandler.play_sfx("ObjectDestroy")
+	
+	if health == 0:
+		destroy_self()
+		print(name, " died!")
 
 func _physics_process(delta):
 	
@@ -57,9 +62,6 @@ func _physics_process(delta):
 		velocity *= pow((10.0-mass)/10, delta * 10.0)
 	else:
 		velocity *= pow(0.9, delta * 10.0)
-
-	if health == 0:
-		destroy_self()
 
 func select():
 	is_selected = true

@@ -57,6 +57,7 @@ LayerManager="*res://src/Scripts/AutoLoads/LayerManager.gd"
 Events="*res://src/Scripts/AutoLoads/Events.gd"
 RESOURCES="*res://src/Scripts/AutoLoads/Resources.gd"
 GameHandler="*res://src/Scripts/AutoLoads/GameHandler.gd"
+AudioHandler="*res://src/Scripts/AutoLoads/AudioHandler.tscn"
 
 [display]
 
