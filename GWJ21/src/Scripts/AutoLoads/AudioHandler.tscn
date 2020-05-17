@@ -62,7 +62,7 @@ volume_db = -10.0
 
 [node name="EnemyShoot" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 8 )
-volume_db = -8.0
+volume_db = -10.0
 
 [node name="EnemyMelee" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 11 )

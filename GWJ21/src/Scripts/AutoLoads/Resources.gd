@@ -19,6 +19,7 @@ const objects = {
 
 const MAP_MENU = preload("res://src/Scenes/Map/MapMenu.tscn")
 const MAIN_MENU = preload("res://src/Scenes/Menus/MainMenu.tscn")
+const FINALE = preload("res://src/Scenes/Menus/EndGameScene.tscn")
 
 const LEVELS = {
 	"level0" : preload("res://src/Scenes/Levels/Level0.tscn"),
@@ -26,19 +27,24 @@ const LEVELS = {
 	"level2" : preload("res://src/Scenes/Levels/Level2.tscn"),
 	"level3" : preload("res://src/Scenes/Levels/Level3.tscn"),
 	"level4" : preload("res://src/Scenes/Levels/Level4.tscn"),
-	"level5" : "",
-	"level6" : "",
-	"level7" : "",
-	"level8" : "",
-	"level9" : "",
-	"level10" : "",
-	"level11" : "",
+	"level5" : preload("res://src/Scenes/Levels/Level5.tscn"),
+	"level6" : preload("res://src/Scenes/Levels/Level6.tscn"),
+	"level7" : preload("res://src/Scenes/Levels/Level7.tscn"),
+	"level8" : preload("res://src/Scenes/Levels/Level8.tscn"),
+	"level9" : preload("res://src/Scenes/Levels/Level9.tscn"),
+	"level10" : ""
 }
 
 const LEVEL_UNLOCKS = {
 	"level0" : ["level1"],
 	"level1" : ["level2", "level3"],
 	"level2" : ["level4"],
-	"level3" : ["level8"],
-	"level4" : ["level5", "level6"]
+	"level3" : ["level7"],
+	"level4" : ["level5"],
+	"level5" : ["level6"],
+	"level6" : [],
+	"level7" : ["level8"],
+	"level8" : ["level9"],
+	"level9" : ["level10"],
+	"level10" : []
 }

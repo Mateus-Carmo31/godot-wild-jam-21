@@ -54,7 +54,7 @@ position = Vector2( 1206.04, 641.759 )
 position = Vector2( 1990.77, 641.759 )
 
 [node name="Blockade3" parent="EntitySort" index="5" instance=ExtResource( 5 )]
-position = Vector2( 1599.85, 431.352 )
+position = Vector2( 1599.85, 387.103 )
 
 [node name="Blockade4" parent="EntitySort" index="6" instance=ExtResource( 5 )]
 position = Vector2( 1599.85, 910.294 )

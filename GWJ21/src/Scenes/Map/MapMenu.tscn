@@ -115,8 +115,8 @@ __meta__ = {
 [node name="LevelIcons" type="Control" parent="."]
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_top = -600.0
-margin_bottom = -600.0
+margin_top = 600.0
+margin_bottom = 600.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -145,20 +145,13 @@ focus_neighbour_top = NodePath("../level2")
 focus_neighbour_right = NodePath("../level3")
 focus_neighbour_bottom = NodePath("../../MainMenuButton")
 
-[node name="TextureRect" parent="LevelIcons/level1" index="0"]
-margin_left = -30.168
-margin_top = 32.0
-margin_right = 1.832
-margin_bottom = 64.0
-rect_rotation = -90.0
-
 [node name="level2" parent="LevelIcons" instance=ExtResource( 1 )]
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 342.0
-margin_top = 274.0
+margin_top = 236.0
 margin_right = -650.0
-margin_bottom = -294.0
+margin_bottom = -332.0
 rect_scale = Vector2( 1.2, 1.2 )
 focus_neighbour_top = NodePath("../level4")
 focus_neighbour_bottom = NodePath("../level1")
@@ -166,21 +159,13 @@ focus_neighbour_bottom = NodePath("../level1")
 [node name="level3" parent="LevelIcons" instance=ExtResource( 1 )]
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = 380.0
+margin_left = 418.0
 margin_top = 312.0
-margin_right = -612.0
+margin_right = -574.0
 margin_bottom = -256.0
 rect_scale = Vector2( 1.2, 1.2 )
-focus_neighbour_left = NodePath("../level1")
-focus_neighbour_right = NodePath("../level8")
-focus_neighbour_bottom = NodePath("../../MainMenuButton")
-
-[node name="TextureRect" parent="LevelIcons/level3" index="0"]
-margin_left = 59.4106
-margin_top = 0.0
-margin_right = 91.4106
-margin_bottom = 32.0
-rect_rotation = 90.0
+focus_neighbour_left = NodePath("../level2")
+focus_neighbour_right = NodePath("../level7")
 
 [node name="level4" parent="LevelIcons" instance=ExtResource( 1 )]
 anchor_right = 1.0
@@ -190,41 +175,40 @@ margin_top = 160.0
 margin_right = -650.0
 margin_bottom = -408.0
 rect_scale = Vector2( 1.2, 1.2 )
-focus_neighbour_right = NodePath("../level1")
-focus_neighbour_bottom = NodePath("../../MainMenuButton")
+focus_neighbour_top = NodePath("../level5")
+focus_neighbour_bottom = NodePath("../level2")
 
 [node name="level5" parent="LevelIcons" instance=ExtResource( 1 )]
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 342.0
-margin_top = 122.0
+margin_top = 84.0
 margin_right = -650.0
-margin_bottom = -446.0
+margin_bottom = -484.0
 rect_scale = Vector2( 1.2, 1.2 )
-focus_neighbour_right = NodePath("../level1")
-focus_neighbour_bottom = NodePath("../../MainMenuButton")
+focus_neighbour_right = NodePath("../level6")
+focus_neighbour_bottom = NodePath("../level4")
 
 [node name="level6" parent="LevelIcons" instance=ExtResource( 1 )]
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = 380.0
-margin_top = 160.0
-margin_right = -612.0
-margin_bottom = -408.0
+margin_left = 418.0
+margin_top = 84.0
+margin_right = -574.0
+margin_bottom = -484.0
 rect_scale = Vector2( 1.2, 1.2 )
-focus_neighbour_right = NodePath("../level1")
-focus_neighbour_bottom = NodePath("../../MainMenuButton")
+focus_neighbour_left = NodePath("../level5")
 
 [node name="level7" parent="LevelIcons" instance=ExtResource( 1 )]
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = 380.0
-margin_top = 122.0
-margin_right = -612.0
-margin_bottom = -446.0
+margin_left = 494.0
+margin_top = 312.0
+margin_right = -498.0
+margin_bottom = -256.0
 rect_scale = Vector2( 1.2, 1.2 )
-focus_neighbour_right = NodePath("../level1")
-focus_neighbour_bottom = NodePath("../../MainMenuButton")
+focus_neighbour_left = NodePath("../level3")
+focus_neighbour_right = NodePath("../level8")
 
 [node name="level8" parent="LevelIcons" instance=ExtResource( 1 )]
 anchor_right = 1.0
@@ -234,38 +218,27 @@ margin_top = 312.0
 margin_right = -422.0
 margin_bottom = -256.0
 rect_scale = Vector2( 1.2, 1.2 )
-focus_neighbour_right = NodePath("../level1")
-focus_neighbour_bottom = NodePath("../../MainMenuButton")
+focus_neighbour_left = NodePath("../level7")
+focus_neighbour_right = NodePath("../level9")
 
 [node name="level9" parent="LevelIcons" instance=ExtResource( 1 )]
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = 570.0
-margin_top = 274.0
-margin_right = -422.0
-margin_bottom = -294.0
+margin_left = 646.0
+margin_top = 312.0
+margin_right = -346.0
+margin_bottom = -256.0
 rect_scale = Vector2( 1.2, 1.2 )
-focus_neighbour_right = NodePath("../level1")
-focus_neighbour_bottom = NodePath("../../MainMenuButton")
+focus_neighbour_left = NodePath("../level8")
+focus_neighbour_top = NodePath("../level10")
 
 [node name="level10" parent="LevelIcons" instance=ExtResource( 1 )]
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = 608.0
-margin_top = 274.0
-margin_right = -384.0
-margin_bottom = -294.0
-rect_scale = Vector2( 1.2, 1.2 )
-focus_neighbour_right = NodePath("../level1")
-focus_neighbour_bottom = NodePath("../../MainMenuButton")
-
-[node name="level11" parent="LevelIcons" instance=ExtResource( 1 )]
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = 608.0
-margin_top = 312.0
-margin_right = -384.0
-margin_bottom = -256.0
+margin_left = 646.0
+margin_top = 236.0
+margin_right = -346.0
+margin_bottom = -332.0
 rect_scale = Vector2( 1.2, 1.2 )
 focus_neighbour_right = NodePath("../level1")
 focus_neighbour_bottom = NodePath("../../MainMenuButton")
@@ -274,9 +247,9 @@ focus_neighbour_bottom = NodePath("../../MainMenuButton")
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 40.374
-margin_top = -88.241
+margin_top = 1111.76
 margin_right = -753.626
-margin_bottom = -613.24
+margin_bottom = 586.761
 rect_scale = Vector2( 0.8, 0.8 )
 focus_neighbour_top = NodePath("../LevelIcons/level0")
 text = "Main menu"
@@ -286,7 +259,3 @@ anims/EnterMap = SubResource( 1 )
 anims/ExitMap = SubResource( 2 )
 anims/MarkCompleted = SubResource( 3 )
 [connection signal="pressed" from="MainMenuButton" to="." method="_on_MainMenuButton_pressed"]
-
-[editable path="LevelIcons/level1"]
-
-[editable path="LevelIcons/level3"]

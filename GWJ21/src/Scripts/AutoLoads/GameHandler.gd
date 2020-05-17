@@ -10,11 +10,11 @@ func _ready():
 	
 	for level_key in RESOURCES.LEVELS.keys():
 		level_completion_table[level_key] = false
-		level_unlock_table[level_key] = true
+		level_unlock_table[level_key] = false
 	
 	level_unlock_table["level0"] = true
-	level_unlock_table["level1"] = true
-	level_unlock_table["level2"] = true
+	
+	load_game()
 
 func return_to_map(was_level_completed):
 	
@@ -30,14 +30,23 @@ func return_to_map(was_level_completed):
 				else:
 					print_debug("Error! Unlocked level is invalid!")
 			
-			if last_level_id == "level11":
-				print("Going to finale!")
-				return
-			
 		else:
 			last_completed_level = null
 	
-	get_tree().change_scene_to(RESOURCES.MAP_MENU)
+	var game_completed = true
+	for level in level_completion_table.keys():
+		if level_completion_table[level] == false:
+			game_completed = false
+			break
+	
+	if not game_completed:
+		print("Game not completed. Continuing...")
+		get_tree().change_scene_to(RESOURCES.MAP_MENU)
+	else:
+		print("Game completed! Going to finale...")
+		get_tree().change_scene_to(RESOURCES.FINALE)
+	
+	save_game()
 
 func change_to_level(level_id):
 	
@@ -52,11 +61,37 @@ func return_to_main_menu():
 	
 	get_tree().change_scene_to(RESOURCES.MAIN_MENU)
 
-func initial_setup():
-	pass
-
 func save_game():
-	pass
+	var save_file = File.new()
+	save_file.open("user://janus_leyline.save", File.WRITE)
+	
+	save_file.store_line(to_json(level_completion_table))
+	save_file.store_line(to_json(level_unlock_table))
+	
+	save_file.close()
 
 func load_game():
-	pass
+	var save_file = File.new()
+	
+	if not save_file.file_exists("user://janus_leyline.save"):
+		save_game()
+		return
+	
+	save_file.open("user://janus_leyline.save", File.READ)
+	
+	if save_file.get_len() == 0:
+		save_file.close()
+		save_game()
+		return
+	
+	level_completion_table = parse_json(save_file.get_line())
+	level_unlock_table = parse_json(save_file.get_line())
+	
+	save_file.close()
+
+# Debug function. DON'T CALL
+func destroy_save():
+	var save_file = File.new()
+	
+	save_file.open("user://janus_leyline.save", File.WRITE)
+	save_file.close()

@@ -29,7 +29,7 @@ func _on_Quit_pressed():
 	get_tree().quit()
 
 func _process(delta):
-	if credits_on and Input.is_action_just_pressed("pause"):
+	if credits_on and (Input.is_action_just_pressed("pause") or Input.is_action_just_pressed("ui_accept")):
 		disable_credits()
 		print("Disabled!")
 

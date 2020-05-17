@@ -44,7 +44,7 @@ object_name = "box"
 position = Vector2( 604.925, -311.665 )
 
 [node name="Blockade2" parent="EntitySort" index="4" instance=ExtResource( 4 )]
-position = Vector2( 604.925, -720.562 )
+position = Vector2( 604.925, -765.706 )
 
 [node name="Room2" parent="EntitySort" index="5" instance=ExtResource( 2 )]
 position = Vector2( 606.357, -1265.16 )
