@@ -32,7 +32,7 @@ const LEVELS = {
 	"level7" : preload("res://src/Scenes/Levels/Level7.tscn"),
 	"level8" : preload("res://src/Scenes/Levels/Level8.tscn"),
 	"level9" : preload("res://src/Scenes/Levels/Level9.tscn"),
-	"level10" : ""
+	"level10" : preload("res://src/Scenes/Levels/Level10.tscn")
 }
 
 const LEVEL_UNLOCKS = {
