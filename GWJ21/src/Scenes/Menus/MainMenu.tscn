@@ -1,7 +1,36 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://src/Scenes/UI/MenuButton.tscn" type="PackedScene" id=1]
 [ext_resource path="res://src/Scenes/Menus/MainMenu.gd" type="Script" id=2]
+[ext_resource path="res://assets/CreditsFont.tres" type="DynamicFont" id=3]
+[ext_resource path="res://assets/MenuButton.tres" type="DynamicFont" id=4]
+
+[sub_resource type="Animation" id=3]
+resource_name = "EnterCredits"
+tracks/0/type = "value"
+tracks/0/path = NodePath("Credits:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Credits:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
+}
 
 [sub_resource type="Animation" id=1]
 resource_name = "EnterMenu"
@@ -17,6 +46,45 @@ tracks/0/keys = {
 "update": 0,
 "values": [ Vector2( 0, 600 ), Vector2( 0, 0 ) ]
 }
+tracks/1/type = "value"
+tracks/1/path = NodePath("Menu/VBoxContainer:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+
+[sub_resource type="Animation" id=4]
+resource_name = "ExitCredits"
+tracks/0/type = "value"
+tracks/0/path = NodePath("Credits:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 1 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ false ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Credits:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+}
 
 [sub_resource type="Animation" id=2]
 resource_name = "ExitMenu"
@@ -31,6 +99,18 @@ tracks/0/keys = {
 "transitions": PoolRealArray( 0.5, 1 ),
 "update": 0,
 "values": [ Vector2( 0, 0 ), Vector2( 0, -600 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Menu/VBoxContainer:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 1 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ false ]
 }
 
 [node name="MainMenu" type="Control"]
@@ -57,6 +137,9 @@ margin_left = 466.224
 margin_top = 89.9848
 margin_right = -517.776
 margin_bottom = -470.015
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Menu"]
 anchor_right = 1.0
@@ -93,14 +176,60 @@ text = "Quit"
 
 [node name="Credits" type="Control" parent="."]
 visible = false
+modulate = Color( 1, 1, 1, 0 )
 anchor_right = 1.0
 anchor_bottom = 1.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="Me" type="Label" parent="Credits"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 243.691
+margin_top = 103.813
+margin_right = -273.309
+margin_bottom = -415.187
+custom_fonts/font = ExtResource( 4 )
+text = "A game by thewandererBr (@carmo_no_sadame)"
+align = 1
+autowrap = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Songs" type="Label" parent="Credits"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 34.6914
+margin_top = 310.985
+margin_right = -31.3086
+margin_bottom = -228.015
+custom_fonts/font = ExtResource( 3 )
+text = "Music: Erik Skiff - A night of dizzy spells - underclocked - arpanauts - Resistor anthems - Available at https://ericskiff.com/music/"
+autowrap = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="SFXs" type="Label" parent="Credits"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 34.6914
+margin_top = 413.886
+margin_right = -31.3086
+margin_bottom = -125.114
+custom_fonts/font = ExtResource( 3 )
+text = "Finale sound effect - Littlerobotsoundfactory - under CC Atributtion 3.0 (https://creativecommons.org/licenses/by/3.0/)"
+autowrap = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/EnterCredits = SubResource( 3 )
 anims/EnterMenu = SubResource( 1 )
+anims/ExitCredits = SubResource( 4 )
 anims/ExitMenu = SubResource( 2 )
 [connection signal="pressed" from="Menu/VBoxContainer/Start" to="." method="_on_Start_pressed"]
 [connection signal="pressed" from="Menu/VBoxContainer/Credits" to="." method="_on_Credits_pressed"]

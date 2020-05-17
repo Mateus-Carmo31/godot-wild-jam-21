@@ -115,6 +115,8 @@ __meta__ = {
 [node name="LevelIcons" type="Control" parent="."]
 anchor_right = 1.0
 anchor_bottom = 1.0
+margin_top = -600.0
+margin_bottom = -600.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -272,9 +274,9 @@ focus_neighbour_bottom = NodePath("../../MainMenuButton")
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 40.374
-margin_top = 511.759
+margin_top = -88.241
 margin_right = -753.626
-margin_bottom = -13.24
+margin_bottom = -613.24
 rect_scale = Vector2( 0.8, 0.8 )
 focus_neighbour_top = NodePath("../LevelIcons/level0")
 text = "Main menu"

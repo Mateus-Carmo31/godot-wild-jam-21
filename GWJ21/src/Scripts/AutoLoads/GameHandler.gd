@@ -10,7 +10,7 @@ func _ready():
 	
 	for level_key in RESOURCES.LEVELS.keys():
 		level_completion_table[level_key] = false
-		level_unlock_table[level_key] = false
+		level_unlock_table[level_key] = true
 	
 	level_unlock_table["level0"] = true
 	level_unlock_table["level1"] = true
@@ -30,13 +30,14 @@ func return_to_map(was_level_completed):
 				else:
 					print_debug("Error! Unlocked level is invalid!")
 			
+			if last_level_id == "level11":
+				print("Going to finale!")
+				return
+			
 		else:
 			last_completed_level = null
 	
-	if was_level_completed and last_level_id == "level11":
-		print("Game finished! Going to after credits!")
-	else:
-		get_tree().change_scene_to(RESOURCES.MAP_MENU)
+	get_tree().change_scene_to(RESOURCES.MAP_MENU)
 
 func change_to_level(level_id):
 	
