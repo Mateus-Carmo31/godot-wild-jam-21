@@ -44,12 +44,14 @@ _global_script_class_icons={
 
 [application]
 
-config/name="GWJ21"
-run/main_scene="res://src/Scenes/Map/MapMenu.tscn"
+config/name="Janus Leyline Cleaning"
+config/description="Clean up dungeons using pulling magic!"
+run/main_scene="res://src/Scenes/Menus/MainMenu.tscn"
 boot_splash/image="res://splash_screen.png"
 boot_splash/fullsize=false
 boot_splash/bg_color=Color( 0.0784314, 0.133333, 0.25098, 1 )
 config/icon="res://icon.png"
+config/windows_native_icon="res://wiz_icon.ico"
 
 [autoload]
 

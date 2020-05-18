@@ -2,6 +2,7 @@ extends Node
 
 var level_completion_table : Dictionary
 var level_unlock_table : Dictionary
+var finale_played := false
 
 var last_level_id = null
 var last_completed_level = null
@@ -39,12 +40,10 @@ func return_to_map(was_level_completed):
 			game_completed = false
 			break
 	
-	if not game_completed:
-		print("Game not completed. Continuing...")
-		get_tree().change_scene_to(RESOURCES.MAP_MENU)
-	else:
-		print("Game completed! Going to finale...")
+	if game_completed and not finale_played:
 		get_tree().change_scene_to(RESOURCES.FINALE)
+	else:
+		get_tree().change_scene_to(RESOURCES.MAP_MENU)
 	
 	save_game()
 
@@ -58,7 +57,6 @@ func change_to_level(level_id):
 
 func return_to_main_menu():
 	save_game()
-	
 	get_tree().change_scene_to(RESOURCES.MAIN_MENU)
 
 func save_game():
@@ -67,6 +65,7 @@ func save_game():
 	
 	save_file.store_line(to_json(level_completion_table))
 	save_file.store_line(to_json(level_unlock_table))
+	save_file.store_line("true" if finale_played else "")
 	
 	save_file.close()
 
@@ -86,6 +85,7 @@ func load_game():
 	
 	level_completion_table = parse_json(save_file.get_line())
 	level_unlock_table = parse_json(save_file.get_line())
+	finale_played = bool(save_file.get_line())
 	
 	save_file.close()
 

@@ -1,11 +1,13 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://src/Scenes/UI/MenuButton.tscn" type="PackedScene" id=1]
 [ext_resource path="res://src/Scenes/Menus/MainMenu.gd" type="Script" id=2]
 [ext_resource path="res://assets/CreditsFont.tres" type="DynamicFont" id=3]
 [ext_resource path="res://assets/MenuButton.tres" type="DynamicFont" id=4]
+[ext_resource path="res://assets/Sprites/Logo.png" type="Texture" id=5]
+[ext_resource path="res://assets/Sprites/GWJ-21-Wildcards.png" type="Texture" id=6]
 
-[sub_resource type="Animation" id=3]
+[sub_resource type="Animation" id=1]
 resource_name = "EnterCredits"
 tracks/0/type = "value"
 tracks/0/path = NodePath("Credits:visible")
@@ -32,8 +34,7 @@ tracks/1/keys = {
 "values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
 }
 
-[sub_resource type="Animation" id=1]
-resource_name = "EnterMenu"
+[sub_resource type="Animation" id=2]
 tracks/0/type = "value"
 tracks/0/path = NodePath("Menu:rect_position")
 tracks/0/interp = 1
@@ -59,7 +60,7 @@ tracks/1/keys = {
 "values": [ true ]
 }
 
-[sub_resource type="Animation" id=4]
+[sub_resource type="Animation" id=3]
 resource_name = "ExitCredits"
 tracks/0/type = "value"
 tracks/0/path = NodePath("Credits:visible")
@@ -86,8 +87,7 @@ tracks/1/keys = {
 "values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
 }
 
-[sub_resource type="Animation" id=2]
-resource_name = "ExitMenu"
+[sub_resource type="Animation" id=4]
 tracks/0/type = "value"
 tracks/0/path = NodePath("Menu:rect_position")
 tracks/0/interp = 1
@@ -130,13 +130,29 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="TextureRect" type="TextureRect" parent="Menu"]
+[node name="Logo" type="TextureRect" parent="Menu"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = 466.224
-margin_top = 89.9848
-margin_right = -517.776
-margin_bottom = -470.015
+margin_left = 243.691
+margin_top = -23.812
+margin_right = -285.309
+margin_bottom = -243.812
+texture = ExtResource( 5 )
+stretch_mode = 6
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Challenges" type="TextureRect" parent="Menu"]
+modulate = Color( 1, 1, 1, 0.454902 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = 285.543
+margin_right = -785.0
+margin_bottom = 300.543
+rect_scale = Vector2( 0.5, 0.5 )
+texture = ExtResource( 6 )
+stretch_mode = 6
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -145,9 +161,9 @@ __meta__ = {
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 370.259
-margin_top = 298.901
+margin_top = 322.35
 margin_right = -423.741
-margin_bottom = -68.0986
+margin_bottom = -44.6498
 __meta__ = {
 "_edit_group_": true,
 "_edit_use_anchors_": false
@@ -227,10 +243,10 @@ __meta__ = {
 }
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-anims/EnterCredits = SubResource( 3 )
-anims/EnterMenu = SubResource( 1 )
-anims/ExitCredits = SubResource( 4 )
-anims/ExitMenu = SubResource( 2 )
+anims/EnterCredits = SubResource( 1 )
+anims/EnterMenu = SubResource( 2 )
+anims/ExitCredits = SubResource( 3 )
+anims/ExitMenu = SubResource( 4 )
 [connection signal="pressed" from="Menu/VBoxContainer/Start" to="." method="_on_Start_pressed"]
 [connection signal="pressed" from="Menu/VBoxContainer/Credits" to="." method="_on_Credits_pressed"]
 [connection signal="pressed" from="Menu/VBoxContainer/Quit" to="." method="_on_Quit_pressed"]

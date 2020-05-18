@@ -9,4 +9,5 @@ func _ready():
 	yield($AnimationPlayer, "animation_finished")
 	$AnimationPlayer.play("Final Monologue (Part 4)")
 	yield($AnimationPlayer, "animation_finished")
+	GameHandler.finale_played = true
 	GameHandler.return_to_main_menu()

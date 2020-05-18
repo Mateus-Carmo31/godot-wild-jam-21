@@ -243,11 +243,11 @@ __meta__ = {
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 114.0
-margin_top = 190.0
+margin_top = 790.0
 margin_right = -545.0
-margin_bottom = 19.002
+margin_bottom = 619.002
 rect_scale = Vector2( 0.6, 0.6 )
-texture = ExtResource( 2 )
+texture = ExtResource( 1 )
 stretch_mode = 5
 __meta__ = {
 "_edit_use_anchors_": false
@@ -257,18 +257,15 @@ __meta__ = {
 visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = 336.706
-margin_top = 233.287
-margin_right = -155.294
-margin_bottom = -214.72
+margin_left = 304.0
+margin_top = 790.0
+margin_right = -188.0
+margin_bottom = 341.993
 custom_fonts/font = SubResource( 1 )
-text = "I already transferred today's payment to your WizPay.
-
-I expect good things from you, newbie. Until tomorrow!"
+text = "Hey newbie! It's me, your boss JANUS!"
 valign = 1
 autowrap = true
 clip_text = true
-percent_visible = 1.07609
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -292,3 +289,4 @@ text = "Thank you for playing the game!"
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 3 )
+volume_db = -10.0

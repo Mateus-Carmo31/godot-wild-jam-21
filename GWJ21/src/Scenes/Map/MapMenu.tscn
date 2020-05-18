@@ -164,7 +164,7 @@ margin_top = 312.0
 margin_right = -574.0
 margin_bottom = -256.0
 rect_scale = Vector2( 1.2, 1.2 )
-focus_neighbour_left = NodePath("../level2")
+focus_neighbour_left = NodePath("../level1")
 focus_neighbour_right = NodePath("../level7")
 
 [node name="level4" parent="LevelIcons" instance=ExtResource( 1 )]
@@ -240,8 +240,7 @@ margin_top = 236.0
 margin_right = -346.0
 margin_bottom = -332.0
 rect_scale = Vector2( 1.2, 1.2 )
-focus_neighbour_right = NodePath("../level1")
-focus_neighbour_bottom = NodePath("../../MainMenuButton")
+focus_neighbour_bottom = NodePath("../level9")
 
 [node name="MainMenuButton" parent="." instance=ExtResource( 3 )]
 anchor_right = 1.0
